@@ -2925,6 +2925,12 @@ typedef struct {
 /* 0x194 */ actor_func update;
 } ActorBgIkanaRay; // size = 0x198
 
+typedef struct {
+/* 0x000 */ Actor base;
+/* 0x144 */ ColCylinder collision;
+/* 0x190 */ actor_func update;
+} ActorEnNnh; // size = 0x194
+
 struct ActorBgMbarChair {
 /* 0x000 */ Actor base;
 /* 0x144 */ UNK_TYPE1 pad144[0x18];

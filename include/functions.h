@@ -2860,7 +2860,7 @@ void func_8014D7B4(void); // func_8014D7B4
 void func_80150A84(void); // func_80150A84
 void func_80150D08(GlobalContext* ctxt, unsigned int uParm2); // func_80150D08
 void func_801514B0(void); // func_801514B0
-void func_801518B0(GlobalContext* ctxt, u32 uParm2, UNK_TYPE4 uParm3); // func_801518B0
+void func_801518B0(GlobalContext* ctxt, u32 uParm2, Actor* uParm3); // func_801518B0
 void func_80151938(GlobalContext* ctxt, u16 param_2); // func_80151938
 void func_80151A68(GlobalContext* ctxt, u16 param_2); // func_80151A68
 void func_80151BB4(s32 iParm1, u32 uParm2); // func_80151BB4
@@ -16586,14 +16586,14 @@ void ObjUsiyane_Init(void); // func_80C0836C
 void ObjUsiyane_Destroy(void); // func_80C08428
 void ObjUsiyane_Update(void); // func_80C0845C
 void ObjUsiyane_Draw(void); // func_80C08480
-void EnNnh_Init(void); // func_80C08760
-void EnNnh_Destroy(void); // func_80C087FC
-void func_80C08828(void); // func_80C08828
-void func_80C0883C(void); // func_80C0883C
-void func_80C088A4(void); // func_80C088A4
-void func_80C088B8(void); // func_80C088B8
-void EnNnh_Update(void); // func_80C088EC
-void EnNnh_Draw(void); // func_80C08950
+void EnNnh_Init(Actor* thisx, GlobalContext* ctxt); // func_80C08760
+void EnNnh_Destroy(Actor* thisx, GlobalContext* ctxt); // func_80C087FC
+void EnNnh_SetSubupdate1(Actor* thisx); // func_80C08828
+void EnNnh_Subupdate1(Actor *thisx, GlobalContext *ctxt); // func_80C0883C
+void EnNnh_SetSubupdate2(Actor* thisx); // func_80C088A4
+void EnNnh_Subupdate2(Actor *thisx, GlobalContext *ctxt); // func_80C088B8
+void EnNnh_Update(Actor* thisx, GlobalContext* ctxt); // func_80C088EC
+void EnNnh_Draw(Actor* thisx, GlobalContext* ctxt); // func_80C08950
 void ObjKzsaku_Init(void); // func_80C08A80
 void ObjKzsaku_Destroy(void); // func_80C08B2C
 void func_80C08B60(void); // func_80C08B60
