@@ -17865,8 +17865,8 @@ extern UNK_TYPE4 D_80C086C4; // D_80C086C4
 extern OverlayRelocationSection objUsiyaneOverlayInfo; // D_80C086D0
 extern u32 objUsiyaneOverlayRelocations[30]; // D_80C086E4
 extern u32 objUsiyaneOverlayInfoOffset; // D_80C0875C
-extern UNK_TYPE1 D_80C089E0; // D_80C089E0
-extern UNK_TYPE1 D_80C08A00; // D_80C08A00
+extern ActorInit enNnhInitData; // D_80C089E0
+extern ColCylinderInit enNnhCylinderInit; // D_80C08A00
 extern OverlayRelocationSection enNnhOverlayInfo; // D_80C08A30
 extern u32 enNnhOverlayRelocations[13]; // D_80C08A44
 extern u32 enNnhOverlayInfoOffset; // D_80C08A7C

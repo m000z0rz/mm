@@ -6523,8 +6523,20 @@ SECTIONS
     SegmentStart = .;
     ovl_En_Nnh : AT(RomLocation)
     {
-        build/src/actors/En_Nnh/ovl_En_Nnh_0x80C08760.o(.text)
+        build/src/actors/En_Nnh/z_en_nnh.o(.text)
+        /*
+        build/src/actors/En_Nnh/z_en_nnh.o(.data)
+        build/src/actors/En_Nnh/z_en_nnh.o(.rodata)
+        build/src/actors/En_Nnh/z_en_nnh_overlay.o(.ovl)
+        */
         build/asm/ovl_En_Nnh_data.o(.text)
+
+        /*
+        build/src/actors/Bg_Ikana_Ray/z_bg_ikana_ray.o(.text)
+        build/src/actors/Bg_Ikana_Ray/z_bg_ikana_ray.o(.data)
+        build/src/actors/Bg_Ikana_Ray/z_bg_ikana_ray.o(.rodata)
+        build/src/actors/Bg_Ikana_Ray/z_bg_ikana_ray_overlay.o(.ovl)
+        */
     }
     SegmentEnd = .;
     SegmentSize = SegmentEnd - SegmentStart;

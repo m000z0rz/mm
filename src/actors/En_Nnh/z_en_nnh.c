@@ -3,13 +3,32 @@
 
 #define THIS ((ActorEnNnh*)thisx)
 
+// ActorInit enNnhInitData = {
+//     0x0289, // id 649
+//     6, // type 6
+//     0, // room 0
+//     0x00000019, // flags
+//     603, // object ID 603, or 0x025b
+//     sizeof(ActorEnNnh),
+//     (actor_func)EnNnh_Init,
+//     (actor_func)EnNnh_Destroy,
+//     (actor_func)EnNnh_Update,
+//     (actor_func)EnNnh_Draw
+// };
+
+// ColCylinderInit enNnhCylinderInit = {
+//     { 13, 0, 9, 57, 16, 1 }, // ColCommonInit
+//     { 1, { 0, 0, 0 }, { 0xf7cfffff, 0, 0 }, 0, 1, 1 }, // ColBodyInfoInit
+//     { 20, 50, 0, {0, 0, 0}} // ColCylinderParams
+// };
+
 void EnNnh_Init(Actor *thisx, GlobalContext *ctxt) {
     ActorEnNnh* this = THIS;
 
     Actor_SetScale(thisx, 0.009999999776482582f);
     
     Collision_InitCylinderDefault(ctxt, &this->collision);
-    Collision_InitCylinderWithData(ctxt, &this->collision, thisx, (ColCylinderInit *) &D_80C08A00); // D_80C08A00 => enNnhCylinderInit
+    Collision_InitCylinderWithData(ctxt, &this->collision, thisx, (ColCylinderInit *) &enNnhCylinderInit); // D_80C08A00 => enNnhCylinderInit
 
     thisx->unk1F = (u8)1;
     thisx->topPosRot.pos = thisx->currPosRot.pos;
@@ -37,7 +56,7 @@ void EnNnh_Subupdate1(Actor* thisx, GlobalContext *ctxt) {
     temp_a1 = ctxt;
     ctxt = ctxt;
     if (func_800B84D0(thisx, temp_a1) != 0) {
-        func_801518B0(ctxt, 0x228U, thisx);
+        func_801518B0(ctxt, 0x228U, thisx); // 0x228 is the ID of "Check" text message ("It's strange, but the way you look...")
         EnNnh_SetSubupdate2(thisx);
         return;
     }
