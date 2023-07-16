@@ -4654,7 +4654,7 @@
     0x80848BF4:("Player_UpperAction_7",),
     0x80848E4C:("Player_UpperAction_8",),
     0x80849054:("Player_UpperAction_9",),
-    0x808490B4:("Player_UpperAction_10",),
+    0x808490B4:("Player_UpperAction_HoldItemOverhead",),
     0x808491B4:("Player_UpperAction_11",),
     0x8084923C:("Player_UpperAction_12",),
     0x808492C4:("Player_UpperAction_13",),

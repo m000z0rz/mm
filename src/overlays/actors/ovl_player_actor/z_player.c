@@ -222,7 +222,7 @@ s32 Player_UpperAction_6(Player* this, PlayState* play);
 s32 Player_UpperAction_7(Player* this, PlayState* play);
 s32 Player_UpperAction_8(Player* this, PlayState* play);
 s32 Player_UpperAction_9(Player* this, PlayState* play);
-s32 Player_UpperAction_10(Player* this, PlayState* play);
+s32 Player_UpperAction_HoldItemOverhead(Player* this, PlayState* play);
 s32 Player_UpperAction_11(Player* this, PlayState* play);
 s32 Player_UpperAction_12(Player* this, PlayState* play);
 s32 Player_UpperAction_13(Player* this, PlayState* play);
@@ -3010,9 +3010,9 @@ PlayerUpperActionFunc sPlayerUpperActionUpdateFuncs[PLAYER_IA_MAX] = {
     Player_UpperAction_6,  // PLAYER_IA_BOW_ICE
     Player_UpperAction_6,  // PLAYER_IA_BOW_LIGHT
     Player_UpperAction_6,  // PLAYER_IA_HOOKSHOT
-    Player_UpperAction_10, // PLAYER_IA_BOMB
-    Player_UpperAction_10, // PLAYER_IA_POWDER_KEG
-    Player_UpperAction_10, // PLAYER_IA_BOMBCHU
+    Player_UpperAction_HoldItemOverhead, // PLAYER_IA_BOMB
+    Player_UpperAction_HoldItemOverhead, // PLAYER_IA_POWDER_KEG
+    Player_UpperAction_HoldItemOverhead, // PLAYER_IA_BOMBCHU
     Player_UpperAction_11, // PLAYER_IA_11
     Player_UpperAction_6,  // PLAYER_IA_DEKU_NUT
     Player_UpperAction_0,  // PLAYER_IA_PICTOGRAPH_BOX
@@ -4204,7 +4204,7 @@ bool func_808313A8(PlayState* play, Player* this, Actor* actor) {
 
 void func_808313F0(Player* this, PlayState* play) {
     if (!func_808313A8(play, this, this->heldActor)) {
-        Player_SetUpperAction(play, this, Player_UpperAction_10);
+        Player_SetUpperAction(play, this, Player_UpperAction_HoldItemOverhead);
         PlayerAnimation_PlayLoop(play, &this->skelAnimeUpper, &gPlayerAnim_link_normal_carryB_wait);
     }
 }
@@ -13522,7 +13522,7 @@ s32 Player_UpperAction_9(Player* this, PlayState* play) {
     return true;
 }
 
-s32 Player_UpperAction_10(Player* this, PlayState* play) {
+s32 Player_UpperAction_HoldItemOverhead(Player* this, PlayState* play) {
     Actor* heldActor = this->heldActor;
 
     if (heldActor == NULL) {
