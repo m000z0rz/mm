@@ -1017,7 +1017,7 @@ typedef enum PlayerCueId {
 // 
 #define PLAYER_STATE3_800        (1 << 11)
 // goron curled
-#define PLAYER_STATE3_1000       (1 << 12)
+#define PLAYER_STATE3_GORON_CURLED (1 << 12) // PLAYER_STATE3_1000
 // 
 #define PLAYER_STATE3_2000       (1 << 13)
 // 
@@ -1031,7 +1031,7 @@ typedef enum PlayerCueId {
 // Related to form Deku
 #define PLAYER_STATE3_40000      (1 << 18)
 // 
-#define PLAYER_STATE3_80000      (1 << 19)
+#define PLAYER_STATE3_GORON_SPIKES_OUT (1 << 19) // PLAYER_STATE3_80000
 // 
 #define PLAYER_STATE3_100000     (1 << 20)
 // Deku hopping?

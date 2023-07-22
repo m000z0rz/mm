@@ -387,7 +387,7 @@ s32 func_800CB924(Camera* camera) {
     Actor* focalActor = camera->focalActor;
 
     if (camera->focalActor == &GET_PLAYER(camera->play)->actor) {
-        return ((Player*)focalActor)->stateFlags3 & PLAYER_STATE3_1000;
+        return ((Player*)focalActor)->stateFlags3 & PLAYER_STATE3_GORON_CURLED;
     } else {
         return 0;
     }

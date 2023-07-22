@@ -4234,7 +4234,7 @@ s32 Player_SetAction(PlayState* play, Player* this, PlayerActionFunc actionFunc,
         this->actor.shape.shadowScale = this->ageProperties->shadowScale;
         this->unk_ABC = 0.0f;
         if (Player_Action_96 == this->actionFunc) {
-            if (this->stateFlags3 & PLAYER_STATE3_80000) {
+            if (this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) {
                 Magic_Reset(play);
             }
             func_8082DD2C(play, this);
@@ -4271,7 +4271,8 @@ s32 Player_SetAction(PlayState* play, Player* this, PlayerActionFunc actionFunc,
                            PLAYER_STATE2_10000000);
     this->stateFlags3 &=
         ~(PLAYER_STATE3_2 | PLAYER_STATE3_8 | PLAYER_STATE3_80 | PLAYER_STATE3_200 | PLAYER_STATE3_2000 |
-          PLAYER_STATE3_8000 | PLAYER_STATE3_10000 | PLAYER_STATE3_20000 | PLAYER_STATE3_40000 | PLAYER_STATE3_80000 |
+          PLAYER_STATE3_8000 | PLAYER_STATE3_10000 | PLAYER_STATE3_20000 | PLAYER_STATE3_40000 |
+          PLAYER_STATE3_GORON_SPIKES_OUT |
           PLAYER_STATE3_200000 | PLAYER_STATE3_1000000 | PLAYER_STATE3_20000000);
 
     this->av1.actionVar1 = 0;
@@ -5825,7 +5826,7 @@ s32 func_80834600(Player* this, PlayState* play) {
             }
 
         } else if (((this->actor.colChkInfo.acHitEffect == 4) && (this->currentMask != PLAYER_MASK_GIANT)) ||
-                   (this->stateFlags3 & PLAYER_STATE3_1000)) {
+                   (this->stateFlags3 & PLAYER_STATE3_GORON_CURLED)) {
             var_a2_2 = 1;
         } else {
             var_a2_2 = 0;
@@ -10317,7 +10318,7 @@ s32 func_80840A30(PlayState* play, Player* this, f32* arg2, f32 arg3) {
                     }
                 }
 
-                if (!(this->stateFlags3 & PLAYER_STATE3_1000)) {
+                if (!(this->stateFlags3 & PLAYER_STATE3_GORON_CURLED)) {
                     if ((this->stateFlags3 & PLAYER_STATE3_8000) && (Player_Action_28 != this->actionFunc)) {
                         Player_SetAction(play, this, Player_Action_61, 0);
                         Player_Anim_PlayOnceAdjusted(play, this, &gPlayerAnim_link_swimer_swim_hit);
@@ -10720,8 +10721,8 @@ void Player_Init(Actor* thisx, PlayState* play) {
         this->stateFlags2 &= ~(PLAYER_STATE2_20000 | PLAYER_STATE2_1000000 | PLAYER_STATE2_40000000);
         this->stateFlags3 &=
             ~(PLAYER_STATE3_8 | PLAYER_STATE3_40 | PLAYER_STATE3_80 | PLAYER_STATE3_100 | PLAYER_STATE3_200 |
-              PLAYER_STATE3_800 | PLAYER_STATE3_1000 | PLAYER_STATE3_2000 | PLAYER_STATE3_8000 | PLAYER_STATE3_10000 |
-              PLAYER_STATE3_40000 | PLAYER_STATE3_80000 | PLAYER_STATE3_100000 | PLAYER_STATE3_200000 |
+              PLAYER_STATE3_800 | PLAYER_STATE3_GORON_CURLED | PLAYER_STATE3_2000 | PLAYER_STATE3_8000 | PLAYER_STATE3_10000 |
+              PLAYER_STATE3_40000 | PLAYER_STATE3_GORON_SPIKES_OUT | PLAYER_STATE3_100000 | PLAYER_STATE3_200000 |
               PLAYER_STATE3_800000 | PLAYER_STATE3_1000000 | PLAYER_STATE3_2000000);
         this->unk_B08 = 0.0f;
         this->unk_B0C = 0.0f;
@@ -10974,9 +10975,9 @@ void Player_SetDoAction(PlayState* play, Player* this) {
 
     // Set B do action
     if (this->transformation == PLAYER_FORM_GORON) {
-        if (this->stateFlags3 & PLAYER_STATE3_80000) {
+        if (this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) {
             doActionB = DO_ACTION_NONE;
-        } else if (this->stateFlags3 & PLAYER_STATE3_1000) {
+        } else if (this->stateFlags3 & PLAYER_STATE3_GORON_CURLED) {
             doActionB = DO_ACTION_POUND;
         } else {
             doActionB = DO_ACTION_PUNCH;
@@ -11024,7 +11025,7 @@ void Player_SetDoAction(PlayState* play, Player* this) {
         if (play->actorCtx.flags & ACTORCTX_FLAG_PICTO_BOX_ON) {
             doActionA = DO_ACTION_SNAP;
         } else if (Player_InBlockingCsMode(play, this) || (this->actor.flags & ACTOR_FLAG_20000000) ||
-                   (this->stateFlags1 & PLAYER_STATE1_1000) || (this->stateFlags3 & PLAYER_STATE3_80000) ||
+                   (this->stateFlags1 & PLAYER_STATE1_1000) || (this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) ||
                    (Player_Action_80 == this->actionFunc)) {
             doActionA = DO_ACTION_NONE;
         } else if (this->stateFlags1 & PLAYER_STATE1_100000) {
@@ -11096,7 +11097,7 @@ void Player_SetDoAction(PlayState* play, Player* this) {
             doActionA = D_8085D354[var_v0];
         } else if (this->stateFlags3 & PLAYER_STATE3_100) {
             doActionA = DO_ACTION_JUMP;
-        } else if (this->stateFlags3 & PLAYER_STATE3_1000) {
+        } else if (this->stateFlags3 & PLAYER_STATE3_GORON_CURLED) {
             doActionA = DO_ACTION_RETURN;
         } else if (!func_8082FBE8(this) && (this->stateFlags1 & PLAYER_STATE1_8000000) && !sp38) {
             doActionA = DO_ACTION_SURFACE;
@@ -11229,7 +11230,7 @@ void Player_ProcessSceneCollision(PlayState* play, Player* this) {
     } else {
         if (Player_Action_93 == this->actionFunc) {
             updBgCheckInfoFlags = UPDBGCHECKINFO_FLAG_4 | UPDBGCHECKINFO_FLAG_10 | UPDBGCHECKINFO_FLAG_800;
-        } else if ((this->stateFlags3 & (PLAYER_STATE3_1000 | PLAYER_STATE3_80000)) && (this->linearVelocity >= 8.0f)) {
+        } else if ((this->stateFlags3 & (PLAYER_STATE3_GORON_CURLED | PLAYER_STATE3_GORON_SPIKES_OUT)) && (this->linearVelocity >= 8.0f)) {
             updBgCheckInfoFlags = UPDBGCHECKINFO_FLAG_1 | UPDBGCHECKINFO_FLAG_2 | UPDBGCHECKINFO_FLAG_4 |
                                   UPDBGCHECKINFO_FLAG_10 | UPDBGCHECKINFO_FLAG_20 | UPDBGCHECKINFO_FLAG_100 |
                                   UPDBGCHECKINFO_FLAG_200;
@@ -11518,7 +11519,7 @@ void Player_UpdateCamAndSeqModes(PlayState* play, Player* this) {
                 } else {
                     camMode = CAM_MODE_FREEFALL;
                 }
-            } else if (this->stateFlags3 & PLAYER_STATE3_80000) {
+            } else if (this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) {
                 if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) {
                     camMode = CAM_MODE_GORONDASH;
                 } else {
@@ -12217,7 +12218,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
               PLAYER_STATE2_100 | PLAYER_STATE2_FORCE_SAND_FLOOR_SOUND | PLAYER_STATE2_1000 | PLAYER_STATE2_4000 |
               PLAYER_STATE2_10000 | PLAYER_STATE2_400000 | PLAYER_STATE2_4000000);
         this->stateFlags3 &= ~(PLAYER_STATE3_10 | PLAYER_STATE3_40 | PLAYER_STATE3_100 | PLAYER_STATE3_800 |
-                               PLAYER_STATE3_1000 | PLAYER_STATE3_100000 | PLAYER_STATE3_2000000 |
+                               PLAYER_STATE3_GORON_CURLED | PLAYER_STATE3_100000 | PLAYER_STATE3_2000000 |
                                PLAYER_STATE3_4000000 | PLAYER_STATE3_8000000 | PLAYER_STATE3_10000000);
         func_808425B4(this);
         Player_ProcessControlStick(play, this);
@@ -12623,7 +12624,7 @@ void Player_Draw(Actor* thisx, PlayState* play) {
         func_800B8118(&this->actor, play, 0);
         func_80122868(play, this);
 
-        if (this->stateFlags3 & PLAYER_STATE3_1000) {
+        if (this->stateFlags3 & PLAYER_STATE3_GORON_CURLED) {
             Color_RGB8 spBC;
             f32 spB8 = this->unk_ABC + 1.0f;
             f32 spB4 = 1.0f - (this->unk_ABC * 0.5f);
@@ -18869,7 +18870,7 @@ void Player_Action_96(Player* this, PlayState* play) {
         return;
     }
 
-    this->stateFlags3 |= PLAYER_STATE3_1000;
+    this->stateFlags3 |= PLAYER_STATE3_GORON_CURLED;
     func_808577E0(this);
 
     if (!func_80857950(play, this)) {
@@ -18923,18 +18924,18 @@ void Player_Action_96(Player* this, PlayState* play) {
             speedTarget = 18.0f;
             Math_StepToC(&this->av1.actionVar1, 4, 1);
 
-            if ((this->stateFlags3 & PLAYER_STATE3_80000) &&
+            if ((this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) &&
                 (!CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A) ||
                  (gSaveContext.save.saveInfo.playerData.magic == 0) ||
                  ((this->av1.actionVar1 == 4) && (this->unk_B08 < 12.0f)))) {
                 if (Math_StepToS(&this->unk_B86[1], 0, 1)) {
-                    this->stateFlags3 &= ~PLAYER_STATE3_80000;
+                    this->stateFlags3 &= ~PLAYER_STATE3_GORON_SPIKES_OUT;
                     Magic_Reset(play);
                     Player_PlaySfx(this, NA_SE_PL_GORON_BALL_CHARGE_FAILED);
                 }
                 this->av1.actionVar1 = 4;
             } else if (this->unk_B86[1] < 7) {
-                if (!(this->stateFlags3 & PLAYER_STATE3_80000)) {
+                if (!(this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT)) {
                     this->unk_3D0.unk_00 = 2;
                 }
                 this->unk_B86[1]++;
@@ -18983,7 +18984,7 @@ void Player_Action_96(Player* this, PlayState* play) {
                         Magic_Consume(play, 2, MAGIC_CONSUME_GORON_ZORA);
                         this->unk_B08 = 18.0f;
                         this->unk_B86[1] = 1;
-                        this->stateFlags3 |= PLAYER_STATE3_80000;
+                        this->stateFlags3 |= PLAYER_STATE3_GORON_SPIKES_OUT;
                         func_8082E1F0(this, NA_SE_PL_GORON_BALL_CHARGE_DASH);
                     }
                 } else {
@@ -19092,7 +19093,7 @@ void Player_Action_96(Player* this, PlayState* play) {
                         this->av1.actionVar1 = 4;
                         this->unk_B8E = 0x14;
                         this->av2.actionVar2 = 0;
-                        this->stateFlags3 &= ~PLAYER_STATE3_80000;
+                        this->stateFlags3 &= ~PLAYER_STATE3_GORON_SPIKES_OUT;
                         Magic_Reset(play);
                     }
                 } else {

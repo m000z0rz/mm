@@ -554,7 +554,7 @@ bool func_80123590(PlayState* play, Actor* actor) {
 s32 func_801235DC(PlayState* play, f32 arg1, s16 arg2) {
     Player* player = GET_PLAYER(play);
 
-    if (player->stateFlags3 & PLAYER_STATE3_1000) {
+    if (player->stateFlags3 & PLAYER_STATE3_GORON_CURLED) {
         player->unk_B08 = arg1;
         player->unk_B0C += arg1 * 0.05f;
         player->currentYaw = arg2;

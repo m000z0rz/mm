@@ -338,7 +338,7 @@ void EnHakurock_Stalactite_StuckInGround(EnHakurock* this, PlayState* play) {
             EnHakurock_SpawnEffect(this, EN_HAKUROCK_EFFECT_TYPE_STALACTITE_DESTROYED);
             EnHakurock_SetupWaitForSignal(this);
         } else if ((&player->actor == this->collider.base.oc) &&
-                   (player->stateFlags3 & (PLAYER_STATE3_1000 | PLAYER_STATE3_80000)) &&
+                   (player->stateFlags3 & (PLAYER_STATE3_GORON_CURLED | PLAYER_STATE3_GORON_SPIKES_OUT)) &&
                    (player->linearVelocity > 8.0f)) {
             player->unk_B08 = player->linearVelocity = -5.0f;
             player->unk_B0C += (player->linearVelocity * 0.05f);

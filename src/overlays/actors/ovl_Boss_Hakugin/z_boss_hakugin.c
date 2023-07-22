@@ -780,7 +780,7 @@ void BossHakugin_SpawnIceSparkle(BossHakugin* this, PlayState* play) {
  * player's speed in the air more closely match their speed on the ground. This boost is only applied once per jump.
  */
 void BossHakugin_ApplyGoronSpikeBoost(BossHakugin* this, Player* player) {
-    if (!this->hasAppliedGoronSpikeBoost && (player->stateFlags3 & PLAYER_STATE3_80000) &&
+    if (!this->hasAppliedGoronSpikeBoost && (player->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) &&
         !(player->actor.bgCheckFlags & BGCHECKFLAG_GROUND) && (player->actor.velocity.y > 5.0f)) {
         player->actor.velocity.y *= 1.3f;
         player->linearVelocity *= 1.3f;
@@ -2619,12 +2619,12 @@ void BossHakugin_CheckForBodyColliderHit(BossHakugin* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
 
     if ((this->bodyCollider.base.atFlags & AT_HIT) &&
-        ((this->actionFunc == BossHakugin_Charge) || !(player->stateFlags3 & PLAYER_STATE3_80000))) {
+        ((this->actionFunc == BossHakugin_Charge) || !(player->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT))) {
         if ((this->actionFunc == BossHakugin_Charge) &&
             (this->bodyCollider.elements[GOHT_COLLIDER_BODYPART_HEAD].info.toucherFlags & TOUCH_HIT) &&
             !(this->bodyCollider.base.atFlags & AT_BOUNCED) && play->grabPlayer(play, player)) {
             BossHakugin_SetupThrow(this, play);
-        } else if (player->stateFlags3 & PLAYER_STATE3_1000) {
+        } else if (player->stateFlags3 & PLAYER_STATE3_GORON_CURLED) {
             //! @bug This block is unreachable. This is trying to check if the player curled up as a Goron without
             //! spikes, but if the player gets hit in this state, they will be forcibly uncurled before this function
             //! gets called; it's impossible to have the state flags necessary to end up here in the final game.

@@ -1344,7 +1344,7 @@ f32 Player_GetHeight(Player* player) {
             return extraHeight + 124.0f;
 
         case PLAYER_FORM_GORON:
-            return extraHeight + ((player->stateFlags3 & PLAYER_STATE3_1000) ? 34.0f : 80.0f);
+            return extraHeight + ((player->stateFlags3 & PLAYER_STATE3_GORON_CURLED) ? 34.0f : 80.0f);
 
         case PLAYER_FORM_ZORA:
             return extraHeight + 68.0f;

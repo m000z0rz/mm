@@ -551,7 +551,7 @@ void func_80BF4AB8(EnRg* this, PlayState* play) {
             } while (actorIter != NULL);
         }
 
-        if ((actorIter == NULL) && !D_80BF5C10 && (this->unk_326 == 0) && (player->stateFlags3 & PLAYER_STATE3_80000) &&
+        if ((actorIter == NULL) && !D_80BF5C10 && (this->unk_326 == 0) && (player->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) &&
             (player->invincibilityTimer == 0) && func_80BF4220(this, play, &player->actor)) {
             this->unk_18C = &player->actor;
             this->unk_310 |= 0x800;
@@ -573,7 +573,7 @@ void func_80BF4AB8(EnRg* this, PlayState* play) {
                 this->unk_320 = CLAMP_MAX(this->unk_320, 0x190);
             } else if (this->collider2.base.at->id == ACTOR_PLAYER) {
                 this->unk_326 = 0x28;
-                if (player->stateFlags3 & PLAYER_STATE3_1000) {
+                if (player->stateFlags3 & PLAYER_STATE3_GORON_CURLED) {
                     player->linearVelocity *= 0.5f;
                     player->unk_B08 = player->linearVelocity;
                     player->unk_B0C += player->linearVelocity * 0.05f;
