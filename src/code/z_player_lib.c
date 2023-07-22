@@ -2067,7 +2067,7 @@ s32 Player_OverrideLimbDrawGameplayCommon(PlayState* play, s32 limbIndex, Gfx** 
             Matrix_RotateZS(player->unk_B86[1], MTXMODE_APPLY);
             Matrix_RotateZYX(rot->x, rot->y, rot->z, MTXMODE_APPLY);
             func_80125318(pos, rot);
-        } else if (player->stateFlags3 & PLAYER_STATE3_2000) {
+        } else if (player->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) {
             Vec3f sp54;
 
             func_801251C4(player, &sp54);
@@ -2203,7 +2203,7 @@ s32 Player_OverrideLimbDrawGameplayDefault(PlayState* play, s32 limbIndex, Gfx**
             Gfx** leftHandDLists = player->leftHandDLists;
             EquipValueSword swordEquipValue;
 
-            if (player->stateFlags3 & PLAYER_STATE3_2000) {
+            if (player->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) {
                 rot->z -= player->unk_B8C;
             } else if ((sPlayerLeftHandType == PLAYER_MODELTYPE_LH_4) &&
                        (player->stateFlags1 & PLAYER_STATE1_2000000)) {
@@ -2258,7 +2258,7 @@ s32 Player_OverrideLimbDrawGameplayDefault(PlayState* play, s32 limbIndex, Gfx**
             } else {
                 Gfx** rightHandDLists = player->rightHandDLists;
 
-                if (player->stateFlags3 & PLAYER_STATE3_2000) {
+                if (player->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) {
                     rot->z -= player->unk_B8C;
                 }
 

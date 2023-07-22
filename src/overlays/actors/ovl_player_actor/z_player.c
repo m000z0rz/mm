@@ -4270,7 +4270,7 @@ s32 Player_SetAction(PlayState* play, Player* this, PlayerActionFunc actionFunc,
     this->stateFlags2 &= ~(PLAYER_STATE2_80000 | PLAYER_STATE2_800000 | PLAYER_STATE2_2000000 | PLAYER_STATE2_8000000 |
                            PLAYER_STATE2_10000000);
     this->stateFlags3 &=
-        ~(PLAYER_STATE3_2 | PLAYER_STATE3_8 | PLAYER_STATE3_80 | PLAYER_STATE3_200 | PLAYER_STATE3_2000 |
+        ~(PLAYER_STATE3_2 | PLAYER_STATE3_8 | PLAYER_STATE3_80 | PLAYER_STATE3_200 | PLAYER_STATE3_DEKU_FLYING |
           PLAYER_STATE3_8000 | PLAYER_STATE3_10000 | PLAYER_STATE3_20000 | PLAYER_STATE3_40000 |
           PLAYER_STATE3_GORON_SPIKES_OUT |
           PLAYER_STATE3_200000 | PLAYER_STATE3_1000000 | PLAYER_STATE3_20000000);
@@ -4736,7 +4736,7 @@ void func_80832888(Player* this, PlayState* play) {
                 this->stateFlags1 |= PLAYER_STATE1_8000;
                 if ((this->currentMask != PLAYER_MASK_GIANT) && (var_v1_2 != NULL) &&
                     !(var_v1_2->flags & ACTOR_FLAG_CANT_LOCK_ON) &&
-                    !(this->stateFlags3 & (PLAYER_STATE3_200 | PLAYER_STATE3_2000))) {
+                    !(this->stateFlags3 & (PLAYER_STATE3_200 | PLAYER_STATE3_DEKU_FLYING))) {
                     if ((var_v1_2 == this->lockOnActor) && (this == GET_PLAYER(play))) {
                         var_v1_2 = play->actorCtx.targetCtx.arrowPointedActor;
                     }
@@ -4773,7 +4773,7 @@ void func_80832888(Player* this, PlayState* play) {
             }
         }
 
-        if ((this->lockOnActor != NULL) && !(this->stateFlags3 & (PLAYER_STATE3_200 | PLAYER_STATE3_2000))) {
+        if ((this->lockOnActor != NULL) && !(this->stateFlags3 & (PLAYER_STATE3_200 | PLAYER_STATE3_DEKU_FLYING))) {
             this->stateFlags1 &= ~(PLAYER_STATE1_10000 | PLAYER_STATE1_20000);
             if ((this->stateFlags1 & PLAYER_STATE1_800) ||
                 !CHECK_FLAG_ALL(this->lockOnActor->flags, ACTOR_FLAG_TARGETABLE | ACTOR_FLAG_UNFRIENDLY)) {
@@ -7179,7 +7179,7 @@ void func_8083827C(Player* this, PlayState* play) {
     this->fallDistance = this->fallStartHeight - (s32)this->actor.world.pos.y;
     if (!(this->stateFlags1 & (PLAYER_STATE1_8000000 | PLAYER_STATE1_20000000)) &&
         ((this->stateFlags1 & PLAYER_STATE1_80000000) ||
-         !(this->stateFlags3 & (PLAYER_STATE3_200 | PLAYER_STATE3_2000))) &&
+         !(this->stateFlags3 & (PLAYER_STATE3_200 | PLAYER_STATE3_DEKU_FLYING))) &&
         !(this->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) {
         if (func_80835428(play, this)) {
             return;
@@ -10721,7 +10721,7 @@ void Player_Init(Actor* thisx, PlayState* play) {
         this->stateFlags2 &= ~(PLAYER_STATE2_20000 | PLAYER_STATE2_1000000 | PLAYER_STATE2_40000000);
         this->stateFlags3 &=
             ~(PLAYER_STATE3_8 | PLAYER_STATE3_40 | PLAYER_STATE3_80 | PLAYER_STATE3_100 | PLAYER_STATE3_200 |
-              PLAYER_STATE3_800 | PLAYER_STATE3_GORON_CURLED | PLAYER_STATE3_2000 | PLAYER_STATE3_8000 | PLAYER_STATE3_10000 |
+              PLAYER_STATE3_800 | PLAYER_STATE3_GORON_CURLED | PLAYER_STATE3_DEKU_FLYING | PLAYER_STATE3_8000 | PLAYER_STATE3_10000 |
               PLAYER_STATE3_40000 | PLAYER_STATE3_GORON_SPIKES_OUT | PLAYER_STATE3_100000 | PLAYER_STATE3_200000 |
               PLAYER_STATE3_800000 | PLAYER_STATE3_1000000 | PLAYER_STATE3_2000000);
         this->unk_B08 = 0.0f;
@@ -11033,7 +11033,7 @@ void Player_SetDoAction(PlayState* play, Player* this) {
         } else if ((this->heldItemAction == PLAYER_IA_FISHING_ROD) && (this->unk_B28 != 0)) {
             doActionA = (this->unk_B28 == 2) ? DO_ACTION_REEL : DO_ACTION_NONE;
             doActionA = (this->unk_B28 == 2) ? DO_ACTION_REEL : DO_ACTION_NONE; //! FAKE: duplicated statement
-        } else if (this->stateFlags3 & PLAYER_STATE3_2000) {
+        } else if (this->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) {
             doActionA = DO_ACTION_DOWN;
         } else if ((this->doorType != PLAYER_DOORTYPE_NONE) && (this->doorType != PLAYER_DOORTYPE_STAIRCASE) &&
                    !(this->stateFlags1 & PLAYER_STATE1_800)) {
@@ -11553,7 +11553,7 @@ void Player_UpdateCamAndSeqModes(PlayState* play, Player* this) {
                 } else {
                     camMode = CAM_MODE_HANG;
                 }
-            } else if ((this->stateFlags3 & PLAYER_STATE3_2000) && (this->actor.velocity.y < 0.0f)) {
+            } else if ((this->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) && (this->actor.velocity.y < 0.0f)) {
                 if (this->stateFlags1 & (PLAYER_STATE1_20000 | PLAYER_STATE1_40000000)) {
                     camMode = CAM_MODE_DEKUFLYZ;
                 } else {
@@ -11856,7 +11856,7 @@ void func_80844784(PlayState* play, Player* this) {
             if ((sp50 > 0.0f) && (this->transformation == PLAYER_FORM_DEKU) &&
                 !(this->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) {
                 if (Player_SetAction(play, this, Player_Action_94, 1)) {
-                    this->stateFlags3 |= PLAYER_STATE3_2000 | PLAYER_STATE3_1000000;
+                    this->stateFlags3 |= PLAYER_STATE3_DEKU_FLYING | PLAYER_STATE3_1000000;
                     func_8082E1F0(this, NA_SE_IT_DEKUNUTS_FLOWER_OPEN);
                     Audio_SetSfxTimerLerpInterval(4, 2);
                 }
@@ -12073,7 +12073,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
             this->unk_ADC--;
         }
 
-        if (!(this->stateFlags3 & PLAYER_STATE3_2000)) {
+        if (!(this->stateFlags3 & PLAYER_STATE3_DEKU_FLYING)) {
             Math_ScaledStepToS(&this->unk_AAA, 0, 0x190);
         }
 
@@ -18423,7 +18423,7 @@ void Player_Action_93(Player* this, PlayState* play) {
 
             this->stateFlags3 |= PLAYER_STATE3_200;
             if (sp38 != 0) {
-                this->stateFlags3 |= PLAYER_STATE3_2000;
+                this->stateFlags3 |= PLAYER_STATE3_DEKU_FLYING;
             }
             if (var_v1 < 0) {
                 this->stateFlags3 |= PLAYER_STATE3_40000;
@@ -18537,7 +18537,7 @@ void Player_Action_94(Player* this, PlayState* play) {
         if (this->actor.bgCheckFlags & BGCHECKFLAG_CEILING) {
             func_80833AA0(this, play);
         }
-    } else if (!(this->stateFlags3 & PLAYER_STATE3_2000)) {
+    } else if (!(this->stateFlags3 & PLAYER_STATE3_DEKU_FLYING)) {
         func_80833AA0(this, play);
     } else if (this->stateFlags3 & PLAYER_STATE3_200) {
         if (this->actor.velocity.y < 0.0f) {

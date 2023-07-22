@@ -1019,8 +1019,8 @@ typedef enum PlayerCueId {
 // goron curled
 #define PLAYER_STATE3_GORON_CURLED (1 << 12) // PLAYER_STATE3_1000
 // 
-#define PLAYER_STATE3_2000       (1 << 13)
-// 
+#define PLAYER_STATE3_DEKU_FLYING (1 << 13) // PLAYER_STATE3_2000
+// b
 #define PLAYER_STATE3_4000       (1 << 14)
 // Swimming Zora
 #define PLAYER_STATE3_8000       (1 << 15)

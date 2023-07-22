@@ -327,7 +327,7 @@ s32 Camera_IsDekuHovering(Camera* camera) {
     Actor* focalActor = camera->focalActor;
 
     if (camera->focalActor == &GET_PLAYER(camera->play)->actor) {
-        return ((Player*)focalActor)->stateFlags3 & PLAYER_STATE3_2000;
+        return ((Player*)focalActor)->stateFlags3 & PLAYER_STATE3_DEKU_FLYING;
     } else {
         return 0;
     }
