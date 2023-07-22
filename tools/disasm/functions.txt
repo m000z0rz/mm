@@ -4665,7 +4665,7 @@
     0x808497A0:("Player_Action_1",),
     0x80849A9C:("Player_Action_2",),
     0x80849DD0:("Player_Action_3",),
-    0x80849FE0:("Player_Action_4",),
+    0x80849FE0:("Player_Action_Idle",),
     0x8084A26C:("Player_Action_5",),
     0x8084A5C0:("Player_Action_6",),
     0x8084A794:("Player_Action_7",),

@@ -117,7 +117,7 @@ void Player_Action_0(Player* this, PlayState* play);
 void Player_Action_1(Player* this, PlayState* play);
 void Player_Action_2(Player* this, PlayState* play);
 void Player_Action_3(Player* this, PlayState* play);
-void Player_Action_4(Player* this, PlayState* play);
+void Player_Action_Idle(Player* this, PlayState* play);
 void Player_Action_5(Player* this, PlayState* play);
 void Player_Action_6(Player* this, PlayState* play);
 void Player_Action_7(Player* this, PlayState* play);
@@ -6593,7 +6593,7 @@ void func_808369F4(Player* this, PlayState* play) {
     } else if (func_80123434(this)) {
         actionFunc = Player_Action_3;
     } else {
-        actionFunc = Player_Action_4;
+        actionFunc = Player_Action_Idle;
     }
     Player_SetAction(play, this, actionFunc, 1);
 }
@@ -7937,7 +7937,7 @@ void func_80839E3C(Player* this, PlayState* play) {
 }
 
 void func_80839E74(Player* this, PlayState* play) {
-    Player_SetAction(play, this, Player_Action_4, 1);
+    Player_SetAction(play, this, Player_Action_Idle, 1);
     Player_Anim_PlayOnce(play, this, func_8082ED20(this));
     this->currentYaw = this->actor.shape.rot.y;
 }
@@ -8375,7 +8375,7 @@ void func_8083B0E4(PlayState* play, Player* this, s16 currentYaw) {
 void func_8083B1A0(Player* this, PlayState* play) {
     PlayerAnimationHeader* anim;
 
-    Player_SetAction(play, this, Player_Action_4, 1);
+    Player_SetAction(play, this, Player_Action_Idle, 1);
     if (this->unk_B40 < 0.5f) {
         anim = D_8085BE84[PLAYER_ANIMGROUP_waitR2wait][this->modelAnimType];
     } else {
@@ -10539,7 +10539,7 @@ void Player_InitMode_6(PlayState* play, Player* this) {
         this->av2.actionVar2 = 0x28;
         gSaveContext.save.isOwlSave = false;
     } else {
-        Player_SetAction(play, this, Player_Action_4, 0);
+        Player_SetAction(play, this, Player_Action_Idle, 0);
         Player_Anim_PlayLoopMorph(play, this, D_8085BE84[PLAYER_ANIMGROUP_nwait][this->modelAnimType]);
         this->stateFlags1 |= PLAYER_STATE1_20000000;
         this->stateFlags2 |= PLAYER_STATE2_20000000;
@@ -13681,7 +13681,7 @@ void Player_Action_0(Player* this, PlayState* play) {
     if (DECR(this->av2.actionVar2) == 0) {
         if (Message_GetState(&play->msgCtx) == TEXT_STATE_NONE) {
             Player_StopCutscene(this);
-            Player_SetAction(play, this, Player_Action_4, 0);
+            Player_SetAction(play, this, Player_Action_Idle, 0);
             this->stateFlags1 &= ~PLAYER_STATE1_20000000;
         }
     } else if (this->av2.actionVar2 == 30) {
@@ -13847,7 +13847,7 @@ void Player_Action_3(Player* this, PlayState* play) {
         return;
     }
     if (!func_80123434(this)) {
-        Player_SetAction_PreserveMoveFlags(play, this, Player_Action_4, 1);
+        Player_SetAction_PreserveMoveFlags(play, this, Player_Action_Idle, 1);
         this->currentYaw = this->actor.shape.rot.y;
         return;
     }
@@ -13877,7 +13877,7 @@ void Player_Action_3(Player* this, PlayState* play) {
     }
 }
 
-void Player_Action_4(Player* this, PlayState* play) {
+void Player_Action_Idle(Player* this, PlayState* play) {
     s32 temp_v0 = func_8082ED94(this);
     s32 animFinished = PlayerAnimation_Update(play, &this->skelAnime);
     f32 speedTarget;
@@ -17812,7 +17812,7 @@ void Player_Action_84(Player* this, PlayState* play) {
                 }
 
                 this->skelAnime.moveFlags = 0;
-                Player_SetAction(play, this, Player_Action_4, 1);
+                Player_SetAction(play, this, Player_Action_Idle, 1);
                 Player_Anim_PlayOnceWaterAdjustment(play, this, anim);
                 this->currentYaw = this->actor.shape.rot.y;
                 this->skelAnime.moveFlags = moveFlags;
@@ -18812,7 +18812,7 @@ void func_808577E0(Player* this) {
 s32 func_80857950(PlayState* play, Player* this) {
     if (((this->unk_B86[1] == 0) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
         ((this->av1.actionVar1 == 3) && (this->actor.velocity.y < 0.0f))) {
-        Player_SetAction(play, this, Player_Action_4, 1);
+        Player_SetAction(play, this, Player_Action_Idle, 1);
         Math_Vec3f_Copy(&this->actor.world.pos, &this->actor.prevPos);
         PlayerAnimation_Change(play, &this->skelAnime, &gPlayerAnim_pg_maru_change, -PLAYER_ANIM_ADJUSTED_SPEED, 7.0f,
                                0.0f, ANIMMODE_ONCE, 0.0f);
@@ -20535,7 +20535,7 @@ s32 Player_TryCsAction(PlayState* play, Player* this, PlayerCsAction csAction) {
 }
 
 void func_8085B384(Player* this, PlayState* play) {
-    Player_SetAction(play, this, Player_Action_4, 1);
+    Player_SetAction(play, this, Player_Action_Idle, 1);
     Player_Anim_PlayOnceMorph(play, this, func_8082ED20(this));
     this->currentYaw = this->actor.shape.rot.y;
 }
