@@ -18809,6 +18809,7 @@ void func_808577E0(Player* this) {
     }
 }
 
+// Stops a goron roll if it should stop, and returns true if it stopped
 bool Player_GoronRoll_CheckStop(PlayState* play, Player* this) {
     if (((this->unk_B86[1] == 0) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
         ((this->av1.actionVar1 == 3) && (this->actor.velocity.y < 0.0f))) {
