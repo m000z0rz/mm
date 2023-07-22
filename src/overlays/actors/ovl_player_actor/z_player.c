@@ -12033,7 +12033,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
     } else {
         f32 temp_fa0;
         f32 var_fv1_2;
-        s32 var_v1;
+        bool inCsMode;
         s32 pad;
 
         if (this->currentBoots != this->prevBoots) {
@@ -12227,13 +12227,13 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
 
         sPlayerUseHeldItem = sPlayerHeldItemButtonIsHeldDown = false;
 
-        var_v1 = Play_InCsMode(play);
+        inCsMode = Play_InCsMode(play);
         D_80862B2C = this->currentMask;
         if (!(this->stateFlags3 & PLAYER_STATE3_4)) {
             this->actionFunc(this, play);
         }
 
-        if (!var_v1) {
+        if (!inCsMode) {
             Player_SetDoAction(play, this);
         }
 
