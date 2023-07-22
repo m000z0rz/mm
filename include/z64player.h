@@ -1240,6 +1240,7 @@ typedef struct Player {
      * = 0 when entering curl
      * = 1 when pounding and rising into the air
      * = 2 when pounding and falling
+     * = 3 when bonking with spikes out
      * = 4 when idle or rolling slowly
      * increases when accelerating with spikes out
      * resets to 4 after accelerating without spikes out, and stop accelerating
