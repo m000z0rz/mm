@@ -966,7 +966,7 @@ typedef enum PlayerCueId {
 #define PLAYER_STATE2_40000      (1 << 18)
 // 
 #define PLAYER_STATE2_80000      (1 << 19)
-// 
+// "Something" is out that can be put away - e.g. sword in hand, or Tatl is out
 #define PLAYER_STATE2_100000     (1 << 20)
 // 
 #define PLAYER_STATE2_200000     (1 << 21)
