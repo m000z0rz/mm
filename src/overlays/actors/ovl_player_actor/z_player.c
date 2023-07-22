@@ -18889,6 +18889,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
         s32 spD8;
 
         if (func_80840A30(play, this, &this->unk_B08, (this->doorType == PLAYER_DOORTYPE_STAIRCASE) ? 0.0f : 12.0f)) {
+            // Bonk
             if (Player_Action_GoronRoll != this->actionFunc) {
                 return;
             }
@@ -18900,6 +18901,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 this->av1.actionVar1 = 3;
             }
         } else if ((this->actor.bgCheckFlags & BGCHECKFLAG_WALL) && (this->unk_B08 >= 12.0f)) {
+            // Reflect
             s16 temp_v0 = this->currentYaw - BINANG_ADD(this->actor.wallYaw, 0x8000);
             s16 temp_v2;
             s32 var_a2 = ABS_ALT(temp_v0);
@@ -18936,6 +18938,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 (!CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A) ||
                  (gSaveContext.save.saveInfo.playerData.magic == 0) ||
                  ((this->av1.actionVar1 == 4) && (this->unk_B08 < 12.0f)))) {
+                // Retract spikes
                 if (Math_StepToS(&this->unk_B86[1], 0, 1)) {
                     this->stateFlags3 &= ~PLAYER_STATE3_GORON_SPIKES_OUT;
                     Magic_Reset(play);

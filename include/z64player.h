@@ -1300,6 +1300,12 @@ typedef struct Player {
     /* 0xB7C */ f32 unk_B7C;
     /* 0xB80 */ f32 pushedSpeed; // Pushing player, examples include water currents, floor conveyors, climbing sloped surfaces
     /* 0xB84 */ s16 pushedYaw; // Yaw of direction in which player is being pushed
+                
+                /** When goron rolling, unk_B86[1] is a "spikes debounce".
+                 * When spikes come out, it increases over time from 0 to 7.
+                 * When you release the A button, it decreases over time. When it reaches
+                 * 0, the spikes will retract.
+                 */
     /* 0xB86 */ s16 unk_B86[2]; // unknown length
     /* 0xB8A */ s16 unk_B8A;
     /* 0xB8C */ s16 unk_B8C;
