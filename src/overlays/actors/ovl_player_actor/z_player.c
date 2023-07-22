@@ -3801,7 +3801,7 @@ void Player_StartChangingHeldItem(Player* this, PlayState* play) {
 
 void Player_UpdateItems(Player* this, PlayState* play) {
     if ((this->actor.id == ACTOR_PLAYER) && !(this->stateFlags3 & PLAYER_STATE3_START_CHANGING_HELD_ITEM)) {
-        if ((this->heldItemAction == this->itemAction) || (this->stateFlags1 & PLAYER_STATE1_400000)) {
+        if ((this->heldItemAction == this->itemAction) || (this->stateFlags1 & PLAYER_STATE1_SHIELDING)) {
             if ((gSaveContext.save.saveInfo.playerData.health != 0) && (play->csCtx.state == CS_STATE_IDLE)) {
                 if ((this->csAction == PLAYER_CSACTION_NONE) && (play->bButtonAmmoPlusOne == 0) &&
                     (play->activeCamId == CAM_ID_MAIN)) {
@@ -4001,7 +4001,7 @@ void func_80830B38(Player* this) {
 
 s32 func_80830B88(PlayState* play, Player* this) {
     if (CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_R)) {
-        if (!(this->stateFlags1 & (PLAYER_STATE1_400000 | PLAYER_STATE1_800000 | PLAYER_STATE1_20000000))) {
+        if (!(this->stateFlags1 & (PLAYER_STATE1_SHIELDING | PLAYER_STATE1_800000 | PLAYER_STATE1_20000000))) {
             if (!(this->stateFlags1 & PLAYER_STATE1_8000000) || ((this->currentBoots >= PLAYER_BOOTS_ZORA_UNDERWATER) &&
                                                                  (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND))) {
                 if ((play->bButtonAmmoPlusOne == 0) && (this->heldItemAction == this->itemAction)) {
@@ -4252,14 +4252,14 @@ s32 Player_SetAction(PlayState* play, Player* this, PlayerActionFunc actionFunc,
     func_800AEF44(Effect_GetByIndex(this->meleeWeaponEffectIndex[2]));
     this->actionFunc = actionFunc;
 
-    if ((this->itemAction != this->heldItemAction) && (!(arg3 & 1) || !(this->stateFlags1 & PLAYER_STATE1_400000))) {
+    if ((this->itemAction != this->heldItemAction) && (!(arg3 & 1) || !(this->stateFlags1 & PLAYER_STATE1_SHIELDING))) {
         func_80123C58(this);
     }
 
     if (!(arg3 & 1) && !(this->stateFlags1 & PLAYER_STATE1_800)) {
         func_808309CC(play, this);
         PlayerAnimation_PlayLoop(play, &this->skelAnimeUpper, func_8082ED20(this));
-        this->stateFlags1 &= ~PLAYER_STATE1_400000;
+        this->stateFlags1 &= ~PLAYER_STATE1_SHIELDING;
     }
 
     func_80831454(this);
@@ -4370,7 +4370,7 @@ void Player_UseItem(PlayState* play, Player* this, ItemId item) {
     PlayerItemAction itemAction = Player_ItemToItemAction(this, item);
 
     if ((((this->heldItemAction == this->itemAction) &&
-          (!(this->stateFlags1 & PLAYER_STATE1_400000) ||
+          (!(this->stateFlags1 & PLAYER_STATE1_SHIELDING) ||
            (Player_MeleeWeaponFromIA(itemAction) != PLAYER_MELEEWEAPON_NONE) || (itemAction == PLAYER_IA_NONE))) ||
          ((this->itemAction <= PLAYER_IA_MINUS1) &&
           ((Player_MeleeWeaponFromIA(itemAction) != PLAYER_MELEEWEAPON_NONE) || (itemAction == PLAYER_IA_NONE)))) &&
@@ -7775,7 +7775,7 @@ void func_808395F0(PlayState* play, Player* this, PlayerMeleeWeaponAnimation mel
 }
 
 s32 func_808396B8(PlayState* play, Player* this) {
-    if (!(this->stateFlags1 & PLAYER_STATE1_400000) &&
+    if (!(this->stateFlags1 & PLAYER_STATE1_SHIELDING) &&
         (((this->actor.id != ACTOR_PLAYER) && CHECK_BTN_ALL(sPlayerControlInput->press.button, BTN_B)) ||
          ((Player_GetMeleeWeaponHeld(this) != PLAYER_MELEEWEAPON_NONE) &&
           ((this->transformation != PLAYER_FORM_GORON) || (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) &&
@@ -8031,7 +8031,7 @@ s32 Player_ActionChange_11(Player* this, PlayState* play) {
             func_8082DC38(this);
             Player_DetachHeldActor(play, this);
             if (Player_SetAction(play, this, Player_Action_18, 0)) {
-                this->stateFlags1 |= PLAYER_STATE1_400000;
+                this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
                 if (this->transformation != PLAYER_FORM_GORON) {
                     PlayerAnimationHeader* anim;
                     f32 endFrame;
@@ -8093,7 +8093,7 @@ void func_8083A548(Player* this) {
 
 s32 Player_ActionChange_8(Player* this, PlayState* play) {
     if (CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_B)) {
-        if (!(this->stateFlags1 & PLAYER_STATE1_400000) &&
+        if (!(this->stateFlags1 & PLAYER_STATE1_SHIELDING) &&
             (Player_GetMeleeWeaponHeld(this) != PLAYER_MELEEWEAPON_NONE)) {
             if ((this->unk_ADC > 0) && (((this->transformation == PLAYER_FORM_ZORA)) ||
                                         ((this->unk_ADC == 1) && (this->heldItemAction != PLAYER_IA_DEKU_STICK)))) {
@@ -11018,7 +11018,7 @@ void Player_SetDoAction(PlayState* play, Player* this) {
         s32 sp28 = this->unk_AE3[this->unk_ADE];
         s32 sp24;
         DoAction doActionA =
-            ((this->transformation == PLAYER_FORM_GORON) && !(this->stateFlags1 & PLAYER_STATE1_400000))
+            ((this->transformation == PLAYER_FORM_GORON) && !(this->stateFlags1 & PLAYER_STATE1_SHIELDING))
                 ? DO_ACTION_CURL
                 : DO_ACTION_NONE;
 
@@ -11113,14 +11113,14 @@ void Player_SetDoAction(PlayState* play, Player* this) {
                             : DO_ACTION_DIVE;
         } else {
             sp24 = func_8082FBE8(this);
-            if ((sp24 && (this->transformation != PLAYER_FORM_DEKU)) || !(this->stateFlags1 & PLAYER_STATE1_400000) ||
+            if ((sp24 && (this->transformation != PLAYER_FORM_DEKU)) || !(this->stateFlags1 & PLAYER_STATE1_SHIELDING) ||
                 !Player_IsGoronOrDeku(this)) {
                 if ((this->transformation != PLAYER_FORM_GORON) &&
                     !(this->stateFlags1 & (PLAYER_STATE1_4 | PLAYER_STATE1_4000)) && (sp28 <= 0) &&
                     (func_80123420(this) ||
                      ((sPlayerFloorType != FLOOR_TYPE_7) &&
                       (func_80123434(this) || ((play->roomCtx.curRoom.behaviorType1 != ROOM_BEHAVIOR_TYPE1_2) &&
-                                               !(this->stateFlags1 & PLAYER_STATE1_400000) && (sp28 == 0)))))) {
+                                               !(this->stateFlags1 & PLAYER_STATE1_SHIELDING) && (sp28 == 0)))))) {
                     doActionA = DO_ACTION_ATTACK;
                 } else if ((play->roomCtx.curRoom.behaviorType1 != ROOM_BEHAVIOR_TYPE1_2) && sp24 && (sp28 > 0)) {
                     doActionA = DO_ACTION_JUMP;
@@ -11567,7 +11567,7 @@ void Player_UpdateCamAndSeqModes(PlayState* play, Player* this) {
                 } else {
                     camMode = CAM_MODE_TARGET;
                 }
-            } else if ((this->stateFlags1 & PLAYER_STATE1_400000) && (this->transformation != 0)) {
+            } else if ((this->stateFlags1 & PLAYER_STATE1_SHIELDING) && (this->transformation != 0)) {
                 camMode = CAM_MODE_STILL;
             } else if (this->stateFlags1 & PLAYER_STATE1_40000) {
                 camMode = CAM_MODE_JUMP;
@@ -12212,7 +12212,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
             this->stateFlags2 &= ~(PLAYER_STATE2_2 | PLAYER_STATE2_200000);
         }
 
-        this->stateFlags1 &= ~(PLAYER_STATE1_10 | PLAYER_STATE1_1000 | PLAYER_STATE1_400000);
+        this->stateFlags1 &= ~(PLAYER_STATE1_10 | PLAYER_STATE1_1000 | PLAYER_STATE1_SHIELDING);
         this->stateFlags2 &=
             ~(PLAYER_STATE2_1 | PLAYER_STATE2_4 | PLAYER_STATE2_8 | PLAYER_STATE2_20 | PLAYER_STATE2_40 |
               PLAYER_STATE2_100 | PLAYER_STATE2_FORCE_SAND_FLOOR_SOUND | PLAYER_STATE2_1000 | PLAYER_STATE2_4000 |
@@ -12314,7 +12314,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
 
             Collider_UpdateCylinder(&this->actor, &this->shieldCylinder);
             CollisionCheck_SetAT(play, &play->colChkCtx, &this->shieldCylinder.base);
-        } else if (this->stateFlags1 & PLAYER_STATE1_400000) {
+        } else if (this->stateFlags1 & PLAYER_STATE1_SHIELDING) {
             if ((this->transformation == PLAYER_FORM_GORON) || (this->transformation == PLAYER_FORM_DEKU)) {
                 this->shieldCylinder.base.acFlags = AC_ON | AC_HARD | AC_TYPE_ENEMY;
                 this->shieldCylinder.info.toucher.dmgFlags = 0x100000;
@@ -12697,7 +12697,7 @@ void Player_Draw(Actor* thisx, PlayState* play) {
                     gSPDisplayList(POLY_XLU_DISP++, object_link_goron_DL_0134D0);
                 }
             }
-        } else if ((this->transformation == PLAYER_FORM_GORON) && (this->stateFlags1 & PLAYER_STATE1_400000)) {
+        } else if ((this->transformation == PLAYER_FORM_GORON) && (this->stateFlags1 & PLAYER_STATE1_SHIELDING)) {
             func_80846460(this);
             SkelAnime_DrawFlexOpa(play, this->unk_2C8.skeleton, this->unk_2C8.jointTable, this->unk_2C8.dListCount,
                                   NULL, NULL, NULL);
@@ -13341,7 +13341,7 @@ s32 Player_UpperAction_3(Player* this, PlayState* play) {
     if (!CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_R)) {
         func_80830CE8(play, this);
     } else {
-        this->stateFlags1 |= PLAYER_STATE1_400000;
+        this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
         Player_SetModelsForHoldingShield(this);
         if ((this->transformation == PLAYER_FORM_ZORA) && CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_B)) {
             func_8082F164(this, BTN_R | BTN_B);
@@ -13361,7 +13361,7 @@ s32 Player_UpperAction_4(Player* this, PlayState* play) {
                                ANIMMODE_ONCE, 0.0f);
     }
 
-    this->stateFlags1 |= PLAYER_STATE1_400000;
+    this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
     Player_SetModelsForHoldingShield(this);
     return true;
 }
@@ -14384,7 +14384,7 @@ void Player_Action_18(Player* this, PlayState* play) {
 
         if (!func_8083FE38(this, play)) {
             if (!Player_ActionChange_11(this, play)) {
-                this->stateFlags1 &= ~PLAYER_STATE1_400000;
+                this->stateFlags1 &= ~PLAYER_STATE1_SHIELDING;
 
                 if (this->itemAction <= PLAYER_IA_MINUS1) {
                     func_80123C58(this);
@@ -14393,7 +14393,7 @@ void Player_Action_18(Player* this, PlayState* play) {
                 func_80836A98(this, D_8085BE84[PLAYER_ANIMGROUP_defense_end][this->modelAnimType], play);
                 func_80830B38(this);
             } else {
-                this->stateFlags1 |= PLAYER_STATE1_400000;
+                this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
             }
         }
 
@@ -14410,9 +14410,9 @@ void Player_Action_18(Player* this, PlayState* play) {
     }
 
     if (!Player_IsGoronOrDeku(this)) {
-        this->stateFlags1 |= PLAYER_STATE1_400000;
+        this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
         Player_UpdateUpperBody(this, play);
-        this->stateFlags1 &= ~PLAYER_STATE1_400000;
+        this->stateFlags1 &= ~PLAYER_STATE1_SHIELDING;
         if (this->transformation == PLAYER_FORM_ZORA) {
             func_8082F164(this, BTN_R | BTN_B);
         }
@@ -14454,7 +14454,7 @@ void Player_Action_18(Player* this, PlayState* play) {
             if (Player_ActionChange_11(this, play)) {
                 func_8083FD80(this, play);
             } else {
-                this->stateFlags1 &= ~PLAYER_STATE1_400000;
+                this->stateFlags1 &= ~PLAYER_STATE1_SHIELDING;
                 func_8082DC38(this);
 
                 if (Player_IsGoronOrDeku(this)) {
@@ -14477,7 +14477,7 @@ void Player_Action_18(Player* this, PlayState* play) {
         }
     }
 
-    this->stateFlags1 |= PLAYER_STATE1_400000;
+    this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
     Player_SetModelsForHoldingShield(this);
     this->unk_AA6 |= 0xC1;
 }
@@ -14493,7 +14493,7 @@ void Player_Action_19(Player* this, PlayState* play) {
     } else {
         s32 temp_v0;
 
-        this->stateFlags1 |= PLAYER_STATE1_400000;
+        this->stateFlags1 |= PLAYER_STATE1_SHIELDING;
         temp_v0 = func_808331FC(play, this, &this->skelAnime, 4.0f);
         if ((temp_v0 != 0) && ((temp_v0 > 0) || PlayerAnimation_Update(play, &this->skelAnime))) {
             PlayerAnimationHeader* anim;

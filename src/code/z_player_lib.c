@@ -517,7 +517,7 @@ bool func_80123434(Player* player) {
 bool func_80123448(PlayState* play) {
     Player* player = GET_PLAYER(play);
 
-    return (player->stateFlags1 & PLAYER_STATE1_400000) &&
+    return (player->stateFlags1 & PLAYER_STATE1_SHIELDING) &&
            (player->transformation != PLAYER_FORM_HUMAN || (!func_80123434(player) && player->lockOnActor == NULL));
 }
 
@@ -1226,7 +1226,7 @@ u8 D_801C07AC[] = {
 };
 
 void Player_SetModelsForHoldingShield(Player* player) {
-    if (player->stateFlags1 & PLAYER_STATE1_400000) {
+    if (player->stateFlags1 & PLAYER_STATE1_SHIELDING) {
         if ((player->itemAction <= PLAYER_IA_MINUS1) || (player->itemAction == player->heldItemAction)) {
             if (!Player_IsHoldingTwoHandedWeapon(player)) {
                 if (!Player_IsGoronOrDeku(player)) {
@@ -2397,7 +2397,7 @@ u8 sPlayerShieldCollisionTypes[PLAYER_SHIELD_MAX] = {
 };
 
 void Player_UpdateShieldCollider(PlayState* play, Player* player, ColliderQuad* collider, Vec3f quadSrc[4]) {
-    if (player->stateFlags1 & PLAYER_STATE1_400000) {
+    if (player->stateFlags1 & PLAYER_STATE1_SHIELDING) {
         Vec3f quadDest[4];
 
         player->shieldQuad.base.colType = sPlayerShieldCollisionTypes[player->currentShield];
@@ -2560,7 +2560,7 @@ void func_8012669C(PlayState* play, Player* player, Vec3f* arg2, Vec3f* arg3) {
 
     if (player->meleeWeaponState != PLAYER_MELEE_WEAPON_STATE_0) {
         if (func_80126440(play, NULL, &player->meleeWeaponInfo[0], &sp3C, &sp30) &&
-            (player->transformation != PLAYER_FORM_GORON) && !(player->stateFlags1 & PLAYER_STATE1_400000)) {
+            (player->transformation != PLAYER_FORM_GORON) && !(player->stateFlags1 & PLAYER_STATE1_SHIELDING)) {
             EffectBlure_AddVertex(Effect_GetByIndex(player->meleeWeaponEffectIndex[0]), &player->meleeWeaponInfo[0].tip,
                                   &player->meleeWeaponInfo[0].base);
         }
@@ -2668,7 +2668,7 @@ void func_80126BD0(PlayState* play, Player* player, s32 arg2) {
         return;
     }
 
-    if ((arg2 != 0) && (player->stateFlags1 & PLAYER_STATE1_400000)) {
+    if ((arg2 != 0) && (player->stateFlags1 & PLAYER_STATE1_SHIELDING)) {
         OPEN_DISPS(play->state.gfxCtx);
 
         gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);

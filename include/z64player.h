@@ -905,7 +905,7 @@ typedef enum PlayerCueId {
 // 
 #define PLAYER_STATE1_200000     (1 << 21)
 // 
-#define PLAYER_STATE1_400000     (1 << 22)
+#define PLAYER_STATE1_SHIELDING (1 << 22) // PLAYER_STATE1_400000
 // 
 #define PLAYER_STATE1_800000     (1 << 23)
 // 
