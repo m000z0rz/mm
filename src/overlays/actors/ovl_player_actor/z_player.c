@@ -18809,8 +18809,7 @@ void func_808577E0(Player* this) {
     }
 }
 
-// Called once from Player_Action_GoronRoll
-s32 func_80857950(PlayState* play, Player* this) {
+s32 Player_GoronRoll_CheckStop(PlayState* play, Player* this) {
     if (((this->unk_B86[1] == 0) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
         ((this->av1.actionVar1 == 3) && (this->actor.velocity.y < 0.0f))) {
         Player_SetAction(play, this, Player_Action_Idle, 1);
@@ -18881,7 +18880,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
     this->stateFlags3 |= PLAYER_STATE3_GORON_CURLED;
     func_808577E0(this);
 
-    if (!func_80857950(play, this)) {
+    if (!Player_GoronRoll_CheckStop(play, this)) {
         f32 speedTarget = 0.0f;
         s16 yawTarget = this->currentYaw;
         u16 spE0;
