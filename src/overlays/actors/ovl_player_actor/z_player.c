@@ -209,7 +209,7 @@ void Player_Action_92(Player* this, PlayState* play);
 void Player_Action_93(Player* this, PlayState* play);
 void Player_Action_94(Player* this, PlayState* play);
 void Player_Action_95(Player* this, PlayState* play);
-void Player_Action_96(Player* this, PlayState* play);
+void Player_Action_GoronRoll(Player* this, PlayState* play);
 void Player_Action_CsAction(Player* this, PlayState* play);
 
 s32 Player_UpperAction_0(Player* this, PlayState* play);
@@ -4229,11 +4229,11 @@ s32 Player_SetAction(PlayState* play, Player* this, PlayerActionFunc actionFunc,
     if (this->actor.flags & ACTOR_FLAG_20000000) {
         AudioOcarina_SetInstrument(OCARINA_INSTRUMENT_OFF);
         this->actor.flags &= ~ACTOR_FLAG_20000000;
-    } else if ((Player_Action_96 == this->actionFunc) || (Player_Action_93 == this->actionFunc)) {
+    } else if ((Player_Action_GoronRoll == this->actionFunc) || (Player_Action_93 == this->actionFunc)) {
         this->actor.shape.shadowDraw = ActorShadow_DrawFeet;
         this->actor.shape.shadowScale = this->ageProperties->shadowScale;
         this->unk_ABC = 0.0f;
-        if (Player_Action_96 == this->actionFunc) {
+        if (Player_Action_GoronRoll == this->actionFunc) {
             if (this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT) {
                 Magic_Reset(play);
             }
@@ -6611,7 +6611,7 @@ void func_80836A98(Player* this, PlayerAnimationHeader* anim, PlayState* play) {
 }
 
 void func_80836AD8(PlayState* play, Player* this) {
-    Player_SetAction(play, this, Player_Action_96, 0);
+    Player_SetAction(play, this, Player_Action_GoronRoll, 0);
     this->unk_B28 = 0;
     this->unk_B86[1] = 0;
     this->unk_AF0[0].x = 0.0f;
@@ -7196,7 +7196,7 @@ void func_8083827C(Player* this, PlayState* play) {
         }
 
         if ((Player_Action_25 == this->actionFunc) || (Player_Action_27 == this->actionFunc) ||
-            (Player_Action_28 == this->actionFunc) || (Player_Action_96 == this->actionFunc) ||
+            (Player_Action_28 == this->actionFunc) || (Player_Action_GoronRoll == this->actionFunc) ||
             (Player_Action_82 == this->actionFunc) || (Player_Action_83 == this->actionFunc)) {
             return;
         }
@@ -8537,7 +8537,7 @@ void func_8083B930(PlayState* play, Player* this) {
     PlayerAnimationHeader* var_a2;
 
     if ((this->currentBoots < PLAYER_BOOTS_ZORA_UNDERWATER) || !(this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) ||
-        (Player_Action_96 == this->actionFunc)) {
+        (Player_Action_GoronRoll == this->actionFunc)) {
         func_8082DE50(play, this);
 
         if (Player_Action_28 == this->actionFunc) {
@@ -9008,7 +9008,7 @@ PlayerAnimationHeader* sPlayerSlopeSlipAnims[] = {
 
 s32 Player_HandleSlopes(PlayState* play, Player* this) {
     if (!Player_InBlockingCsMode(play, this) && !(this->cylinder.base.ocFlags1 & OC1_HIT)) {
-        if ((Player_Action_73 != this->actionFunc) && (Player_Action_96 != this->actionFunc) &&
+        if ((Player_Action_73 != this->actionFunc) && (Player_Action_GoronRoll != this->actionFunc) &&
             (sPlayerFloorEffect == FLOOR_EFFECT_1)) {
             s16 playerVelYaw = Math_Atan2S_XY(this->actor.velocity.z, this->actor.velocity.x);
             Vec3f slopeNormal;
@@ -9023,7 +9023,7 @@ s32 Player_HandleSlopes(PlayState* play, Player* this) {
             velYawToDownwardSlope = downwardSlopeYaw - playerVelYaw;
 
             if (ABS_ALT(velYawToDownwardSlope) > 0x3E80) { // 87.9 degrees
-                var_fa1 = (Player_Action_96 == this->actionFunc) ? Math_CosS(this->floorPitch) : slopeNormal.y;
+                var_fa1 = (Player_Action_GoronRoll == this->actionFunc) ? Math_CosS(this->floorPitch) : slopeNormal.y;
                 slopeSlowdownSpeed = (1.0f - var_fa1) * 40.0f;
                 temp_fv1 = fabsf(this->actor.speed) + slopeSlowdownSpeed;
                 slopeSlowdownSpeedStep = SQ(temp_fv1) * 0.011f;
@@ -12358,7 +12358,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
             }
             if (!(this->stateFlags1 & (PLAYER_STATE1_80 | PLAYER_STATE1_4000000)) && (this->invincibilityTimer <= 0)) {
                 if ((Player_Action_93 != this->actionFunc) &&
-                    ((Player_Action_96 != this->actionFunc) || (this->av1.actionVar1 != 1))) {
+                    ((Player_Action_GoronRoll != this->actionFunc) || (this->av1.actionVar1 != 1))) {
                     if (this->cylinder.base.atFlags != AT_NONE) {
                         CollisionCheck_SetAT(play, &play->colChkCtx, &this->cylinder.base);
                     }
@@ -18861,7 +18861,7 @@ void func_80857AEC(PlayState* play, Player* this) {
 }
 
 // Goron rolling related
-void Player_Action_96(Player* this, PlayState* play) {
+void Player_Action_GoronRoll(Player* this, PlayState* play) {
     if (Player_TryActionChangeList(play, this, sPlayerActionChangeList12, false)) {
         return;
     }
@@ -18881,7 +18881,7 @@ void Player_Action_96(Player* this, PlayState* play) {
         s32 spD8;
 
         if (func_80840A30(play, this, &this->unk_B08, (this->doorType == PLAYER_DOORTYPE_STAIRCASE) ? 0.0f : 12.0f)) {
-            if (Player_Action_96 != this->actionFunc) {
+            if (Player_Action_GoronRoll != this->actionFunc) {
                 return;
             }
 

@@ -4792,7 +4792,7 @@
     0x80857950:("func_80857950",),
     0x80857A44:("func_80857A44",),
     0x80857AEC:("func_80857AEC",),
-    0x80857BE8:("Player_Action_96",),
+    0x80857BE8:("Player_Action_GoronRoll",),
     0x80858C84:("Player_CsAnimHelper_PlayOnceMorphReset",),
     0x80858CC8:("Player_CsAnimHelper_PlayOnceSlowMorphAdjustedReset",),
     0x80858D48:("Player_CsAnimHelper_PlayLoopSlowMorphAdjustedReset",),
