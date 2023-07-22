@@ -13877,6 +13877,7 @@ void Player_Action_3(Player* this, PlayState* play) {
     }
 }
 
+// Player Action when standing still, not doing anything, not z-targeting
 void Player_Action_Idle(Player* this, PlayState* play) {
     s32 temp_v0 = func_8082ED94(this);
     s32 animFinished = PlayerAnimation_Update(play, &this->skelAnime);
