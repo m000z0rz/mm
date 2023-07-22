@@ -18809,7 +18809,7 @@ void func_808577E0(Player* this) {
     }
 }
 
-s32 Player_GoronRoll_CheckStop(PlayState* play, Player* this) {
+bool Player_GoronRoll_CheckStop(PlayState* play, Player* this) {
     if (((this->unk_B86[1] == 0) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
         ((this->av1.actionVar1 == 3) && (this->actor.velocity.y < 0.0f))) {
         Player_SetAction(play, this, Player_Action_Idle, 1);
