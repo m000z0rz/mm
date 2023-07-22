@@ -18784,6 +18784,10 @@ void func_808576BC(PlayState* play, Player* this) {
     }
 }
 
+// Called once early in Player_Action_GoronRoll
+// Maybe has to do with scaling? unk_ABC and unk_B48 settle at different values
+//   depending on whether you start your curle when standing vs running
+//   they also change differently when doing pound
 void func_808577E0(Player* this) {
     f32 temp_fa1 = ABS_ALT(this->av2.actionVar2) * 0.00004f;
 
@@ -18818,6 +18822,7 @@ s32 func_80857950(PlayState* play, Player* this) {
     return false;
 }
 
+// only called once, from Player_Action_GoronRoll
 s32 func_80857A44(PlayState* play, Player* this) {
     if (PlayerAnimation_Update(play, &this->skelAnime)) {
         Player_Anim_ResetMove(this);
@@ -18867,6 +18872,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
     }
 
     if ((this->av1.actionVar1 == 0) && !func_80857A44(play, this)) {
+			  // Still in the animation for entering the curl
         return;
     }
 

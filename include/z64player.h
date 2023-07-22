@@ -860,129 +860,129 @@ typedef enum PlayerCueId {
 } PlayerCueId;
 
 
-// 
+//
 #define PLAYER_STATE1_1          (1 << 0)
-// 
+//
 #define PLAYER_STATE1_2          (1 << 1)
 // Climbing ledge
 #define PLAYER_STATE1_4          (1 << 2)
-// 
+//
 #define PLAYER_STATE1_8          (1 << 3)
 // Zora electric shield
 #define PLAYER_STATE1_10         (1 << 4)
-// 
+//
 #define PLAYER_STATE1_20         (1 << 5)
-// 
+//
 #define PLAYER_STATE1_40         (1 << 6)
-// 
+//
 #define PLAYER_STATE1_80         (1 << 7)
-// 
+//
 #define PLAYER_STATE1_100        (1 << 8)
-// 
+//
 #define PLAYER_STATE1_200        (1 << 9)
-// 
+//
 #define PLAYER_STATE1_400        (1 << 10)
-// 
+//
 #define PLAYER_STATE1_800        (1 << 11)
 // charging spin attack
 #define PLAYER_STATE1_1000       (1 << 12)
-// 
+//
 #define PLAYER_STATE1_2000       (1 << 13)
-// 
+//
 #define PLAYER_STATE1_4000       (1 << 14)
-// 
+//
 #define PLAYER_STATE1_8000       (1 << 15)
-// 
+//
 #define PLAYER_STATE1_10000      (1 << 16)
-// 
+//
 #define PLAYER_STATE1_20000      (1 << 17)
-// 
+//
 #define PLAYER_STATE1_40000      (1 << 18)
-// 
+//
 #define PLAYER_STATE1_80000      (1 << 19)
-// 
+//
 #define PLAYER_STATE1_100000     (1 << 20)
-// 
+//
 #define PLAYER_STATE1_200000     (1 << 21)
-// 
+//
 #define PLAYER_STATE1_SHIELDING (1 << 22) // PLAYER_STATE1_400000
-// 
+//
 #define PLAYER_STATE1_800000     (1 << 23)
-// 
+//
 #define PLAYER_STATE1_1000000    (1 << 24)
-// 
+//
 #define PLAYER_STATE1_2000000    (1 << 25)
-// 
+//
 #define PLAYER_STATE1_4000000    (1 << 26)
 // Swimming?
 #define PLAYER_STATE1_8000000    (1 << 27)
-// 
+//
 #define PLAYER_STATE1_10000000   (1 << 28)
 // Time is stopped but Link & NPC animations continue
 #define PLAYER_STATE1_20000000   (1 << 29)
-// 
+//
 #define PLAYER_STATE1_40000000   (1 << 30)
 // Related to exit a grotto
 #define PLAYER_STATE1_80000000   (1 << 31)
 
 
-// 
+//
 #define PLAYER_STATE2_1          (1 << 0)
-// 
+//
 #define PLAYER_STATE2_2          (1 << 1)
-// 
+//
 #define PLAYER_STATE2_4          (1 << 2)
-// 
+//
 #define PLAYER_STATE2_8          (1 << 3)
-// 
+//
 #define PLAYER_STATE2_10         (1 << 4)
-// 
+//
 #define PLAYER_STATE2_20         (1 << 5)
-// 
+//
 #define PLAYER_STATE2_40         (1 << 6)
-// 
+//
 #define PLAYER_STATE2_80         (1 << 7)
-// 
+//
 #define PLAYER_STATE2_100        (1 << 8)
-// 
+//
 #define PLAYER_STATE2_FORCE_SAND_FLOOR_SOUND (1 << 9)
-// 
+//
 #define PLAYER_STATE2_400        (1 << 10)
 // Diving
 #define PLAYER_STATE2_800        (1 << 11)
-// 
+//
 #define PLAYER_STATE2_1000       (1 << 12)
-// 
+//
 #define PLAYER_STATE2_2000       (1 << 13)
-// 
+//
 #define PLAYER_STATE2_4000       (1 << 14)
-// 
+//
 #define PLAYER_STATE2_8000       (1 << 15)
-// 
+//
 #define PLAYER_STATE2_10000      (1 << 16)
 // A non-magic spin attack
 #define PLAYER_STATE2_20000      (1 << 17)
-// 
+//
 #define PLAYER_STATE2_40000      (1 << 18)
-// 
+//
 #define PLAYER_STATE2_80000      (1 << 19)
 // "Something" is out that can be put away - e.g. sword in hand, or Tatl is out
 #define PLAYER_STATE2_100000     (1 << 20)
-// 
+//
 #define PLAYER_STATE2_200000     (1 << 21)
-// 
+//
 #define PLAYER_STATE2_400000     (1 << 22)
-// 
+//
 #define PLAYER_STATE2_800000     (1 << 23)
-// 
+//
 #define PLAYER_STATE2_1000000    (1 << 24)
-// 
+//
 #define PLAYER_STATE2_2000000    (1 << 25)
-// 
+//
 #define PLAYER_STATE2_4000000    (1 << 26)
-// 
+//
 #define PLAYER_STATE2_8000000    (1 << 27)
-// 
+//
 #define PLAYER_STATE2_10000000   (1 << 28)
 // Disable drawing player
 #define PLAYER_STATE2_20000000   (1 << 29)
@@ -994,65 +994,65 @@ typedef enum PlayerCueId {
 
 // Ignores collision with floor?
 #define PLAYER_STATE3_1          (1 << 0)
-// 
+//
 #define PLAYER_STATE3_2          (1 << 1)
-// 
+//
 #define PLAYER_STATE3_4          (1 << 2)
-// 
+//
 #define PLAYER_STATE3_8          (1 << 3)
-// 
+//
 #define PLAYER_STATE3_10         (1 << 4)
-// 
+//
 #define PLAYER_STATE3_20         (1 << 5)
-// 
+//
 #define PLAYER_STATE3_40         (1 << 6)
-// 
+//
 #define PLAYER_STATE3_80         (1 << 7)
 // Deku flower dive
 #define PLAYER_STATE3_100        (1 << 8)
-// 
+//
 #define PLAYER_STATE3_200        (1 << 9)
-// 
+//
 #define PLAYER_STATE3_400        (1 << 10)
-// 
+//
 #define PLAYER_STATE3_800        (1 << 11)
 // goron curled
 #define PLAYER_STATE3_GORON_CURLED (1 << 12) // PLAYER_STATE3_1000
-// 
+//
 #define PLAYER_STATE3_DEKU_FLYING (1 << 13) // PLAYER_STATE3_2000
 // b
 #define PLAYER_STATE3_4000       (1 << 14)
 // Swimming Zora
 #define PLAYER_STATE3_8000       (1 << 15)
-// 
+//
 #define PLAYER_STATE3_10000      (1 << 16)
-// 
+//
 #define PLAYER_STATE3_20000      (1 << 17)
 // Related to form Deku
 #define PLAYER_STATE3_40000      (1 << 18)
-// 
+//
 #define PLAYER_STATE3_GORON_SPIKES_OUT (1 << 19) // PLAYER_STATE3_80000
-// 
+//
 #define PLAYER_STATE3_100000     (1 << 20)
 // Deku hopping?
 #define PLAYER_STATE3_200000     (1 << 21)
-// 
+//
 #define PLAYER_STATE3_400000     (1 << 22)
-// 
+//
 #define PLAYER_STATE3_800000     (1 << 23)
-// 
+//
 #define PLAYER_STATE3_1000000    (1 << 24)
-// 
+//
 #define PLAYER_STATE3_2000000    (1 << 25)
-// 
+//
 #define PLAYER_STATE3_4000000    (1 << 26)
-// 
+//
 #define PLAYER_STATE3_8000000    (1 << 27)
-// 
+//
 #define PLAYER_STATE3_10000000   (1 << 28)
 // breman mask march?
 #define PLAYER_STATE3_20000000   (1 << 29)
-// 
+//
 #define PLAYER_STATE3_START_CHANGING_HELD_ITEM   (1 << 30)
 // TARGETING_HOSTILE?
 #define PLAYER_STATE3_80000000   (1 << 31)
@@ -1235,10 +1235,20 @@ typedef struct Player {
     /* 0xADE */ u8 unk_ADE;
     /* 0xADF */ s8 unk_ADF[4]; // Circular buffer used for testing for triggering a quickspin
     /* 0xAE3 */ s8 unk_AE3[4]; // Circular buffer used for ?
-    /* 0xAE7 */ union { 
+
+    /* When curled as a Goron...
+     * = 0 when entering curl
+     * = 1 when pounding and rising into the air
+     * = 2 when pounding and falling
+     * = 4 when idle or rolling slowly
+     * increases when accelerating with spikes out
+     * resets to 4 after accelerating without spikes out, and stop accelerating
+     * decreases over time down to 4 after spikes come out
+     */
+    /* 0xAE7 */ union {
         s8 actionVar1;
     } av1; // "Action Variable 1": context dependent variable that has different meanings depending on what action is currently running
-    /* 0xAE8 */ union { 
+    /* 0xAE8 */ union {
         s16 actionVar2;
     } av2; // "Action Variable 2": context dependent variable that has different meanings depending on what action is currently running
     /* 0xAEC */ f32 unk_AEC;
