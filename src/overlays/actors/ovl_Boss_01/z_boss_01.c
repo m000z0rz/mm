@@ -2438,7 +2438,7 @@ void Boss01_Update(Actor* thisx, PlayState* play2) {
     // attacks, even if canGuardOrEvade is set to true. This allows the player to hit Odolwa even during states where he
     // normally evades attacks, so long as the player is far enough to the side or behind him.
     if (this->canGuardOrEvade &&
-        ((player->unk_D57 != 0) || ((player->unk_ADC != 0) && (this->actor.xzDistToPlayer <= 120.0f))) &&
+        ((player->unkTimer_D57 != 0) || ((player->unk_ADC != 0) && (this->actor.xzDistToPlayer <= 120.0f))) &&
         Boss01_ArePlayerAndOdolwaFacing(this, play)) {
         if ((Rand_ZeroOne() < 0.25f) && (this->actionFunc != Boss01_Guard)) {
             Boss01_SetupJump(this, play, false);

@@ -2705,7 +2705,7 @@ void func_8082EEA4(Player* this, s32 arg1) {
 }
 
 PlayerAnimationHeader* func_8082EEE0(Player* this) {
-    if (this->unk_B64 != 0) {
+    if (this->unkTimer_B64 != 0) {
         return D_8085BE84[PLAYER_ANIMGROUP_damage_run][this->modelAnimType];
     } else {
         return D_8085BE84[PLAYER_ANIMGROUP_run][this->modelAnimType];
@@ -4170,7 +4170,7 @@ bool func_80831194(PlayState* play, Player* this) {
             this->unk_B48 = 0.0f;
         }
 
-        this->unk_D57 = (this->transformation == PLAYER_FORM_DEKU) ? 20 : 4;
+        this->unkTimer_D57 = (this->transformation == PLAYER_FORM_DEKU) ? 20 : 4;
 
         this->heldActor->parent = NULL;
         this->actor.child = NULL;
@@ -5186,7 +5186,7 @@ void func_808332A0(PlayState* play, Player* this, s32 magicCost, s32 isSwordBeam
 
         if ((thunder != NULL) && isSwordBeam) {
             Magic_Consume(play, 1, MAGIC_CONSUME_DEITY_BEAM);
-            this->unk_D57 = 4;
+            this->unkTimer_D57 = 4;
         }
     }
 }
@@ -5455,7 +5455,7 @@ void func_80833B18(PlayState* play, Player* this, s32 arg2, f32 speed, f32 veloc
         func_80833A64(this);
     }
 
-    this->unk_B64 = 0;
+    this->unkTimer_B64 = 0;
 
     Player_PlaySfx(this, NA_SE_PL_DAMAGE);
 
@@ -5543,7 +5543,7 @@ void func_80833B18(PlayState* play, Player* this, s32 arg2, f32 speed, f32 veloc
             }
             this->actor.bgCheckFlags &= ~BGCHECKFLAG_GROUND;
         } else if ((this->linearVelocity > 4.0f) && !func_80123420(this)) {
-            this->unk_B64 = 20;
+            this->unkTimer_B64 = 20;
 
             Player_RequestRumble(play, this, 120, 20, 10, SQ(0));
             Player_AnimSfx_PlayVoice(this, NA_SE_VO_LI_DAMAGE_S);
@@ -5798,7 +5798,7 @@ s32 func_80834600(Player* this, PlayState* play) {
         }
 
         return false;
-    } else if ((this->unk_D6B != 0) || (this->invincibilityTimer > 0) || (this->stateFlags1 & PLAYER_STATE1_4000000) ||
+    } else if ((this->unkTimer_D6B != 0) || (this->invincibilityTimer > 0) || (this->stateFlags1 & PLAYER_STATE1_4000000) ||
                (this->csAction != PLAYER_CSACTION_NONE) || (this->meleeWeaponQuads[0].base.atFlags & AT_HIT) ||
                (this->meleeWeaponQuads[1].base.atFlags & AT_HIT) || (this->cylinder.base.atFlags & AT_HIT) ||
                (this->shieldCylinder.base.atFlags & AT_HIT)) {
@@ -10248,7 +10248,7 @@ void func_80840770(PlayState* play, Player* this) {
                 func_8085B384(this, play);
             }
 
-            this->unk_D6B = 20;
+            this->unkTimer_D6B = 20;
             func_808339B4(this, -20);
             Audio_SetBgmVolumeOn();
         }
@@ -11963,16 +11963,16 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
 
     Math_StepToF(&this->unk_AC0, 0.0f, CLAMP_MIN(temp_fv1, 300.0f));
 
-    if (this->unk_D57 != 0) {
-        this->unk_D57--;
+    if (this->unkTimer_D57 != 0) {
+        this->unkTimer_D57--;
     }
 
-    if (this->unk_B5E != 0) {
-        this->unk_B5E--;
+    if (this->unkTimer_B5E != 0) {
+        this->unkTimer_B5E--;
     }
 
-    if (this->unk_D6B != 0) {
-        this->unk_D6B--;
+    if (this->unkTimer_D6B != 0) {
+        this->unkTimer_D6B--;
     }
 
     if (this->invincibilityTimer < 0) {
@@ -11981,8 +11981,8 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
         this->invincibilityTimer--;
     }
 
-    if (this->unk_B64 != 0) {
-        this->unk_B64--;
+    if (this->unkTimer_B64 != 0) {
+        this->unkTimer_B64--;
     }
 
     if (this->blastMaskTimer != 0) {
@@ -12152,7 +12152,7 @@ void Player_UpdateCommon(Player* this, PlayState* play, Input* input) {
                     }
                 } else {
                     if ((this->actor.parent == NULL) &&
-                        (func_8082DA90(play) || (this->unk_D6B != 0) || !func_80834600(this, play))) {
+                        (func_8082DA90(play) || (this->unkTimer_D6B != 0) || !func_80834600(this, play))) {
                         func_8083827C(this, play);
                     } else {
                         this->fallStartHeight = this->actor.world.pos.y;
@@ -12443,7 +12443,7 @@ void Player_Update(Actor* thisx, PlayState* play) {
         this->fallStartHeight = this->actor.world.pos.y;
     } else {
         input = *CONTROLLER1(&play->state);
-        if (this->unk_B5E != 0) {
+        if (this->unkTimer_B5E != 0) {
             input.cur.button &= ~(BTN_CUP | BTN_B | BTN_A);
             input.press.button &= ~(BTN_CUP | BTN_B | BTN_A);
         }
@@ -13634,7 +13634,7 @@ s32 Player_UpperAction_14(Player* this, PlayState* play) {
                 func_8083133C(this);
             }
 
-            this->unk_D57 = 20;
+            this->unkTimer_D57 = 20;
 
             Player_PlaySfx(this, NA_SE_IT_BOOMERANG_THROW);
             Player_AnimSfx_PlayVoice(this, NA_SE_VO_LI_SWORD_N);
@@ -15537,7 +15537,7 @@ void Player_Action_44(Player* this, PlayState* play) {
             }
         }
 
-        this->unk_B5E = 0xA;
+        this->unkTimer_B5E = 0xA;
         return;
     }
 
@@ -16978,7 +16978,7 @@ void Player_Action_64(Player* this, PlayState* play) {
                         this->bodyPartsPos[PLAYER_BODYPART_RIGHT_HAND].z, 0xFA0, this->actor.shape.rot.y, 0,
                         ARROW_TYPE_DEKU_NUT) != NULL) {
             Inventory_ChangeAmmo(ITEM_DEKU_NUT, -1);
-            this->unk_D57 = 4;
+            this->unkTimer_D57 = 4;
         }
 
         Player_AnimSfx_PlayVoice(this, NA_SE_VO_LI_SWORD_N);
@@ -17451,7 +17451,7 @@ void Player_Action_71(Player* this, PlayState* play) {
                 this->getItemDrawIdPlusOne = GID_NONE + 1;
                 this->actor.flags &= ~ACTOR_FLAG_TALK;
                 func_80839E74(this, play);
-                this->unk_B5E = 0xA;
+                this->unkTimer_B5E = 0xA;
             }
         }
     } else if (this->av2.actionVar2 >= 0) {

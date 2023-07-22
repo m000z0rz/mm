@@ -1268,11 +1268,11 @@ typedef struct Player {
     /* 0xB58 */ f32 distToInteractWall; // xyz distance to the interact wall
     /* 0xB5C */ u8 ledgeClimbType; // see PlayerLedgeClimbType enum
     /* 0xB5D */ u8 ledgeClimbDelayTimer;
-    /* 0xB5E */ u8 unk_B5E;
+    /* 0xB5E */ u8 unkTimer_B5E;
     /* 0xB5F */ u8 unk_B5F;
     /* 0xB60 */ u16 blastMaskTimer;
     /* 0xB62 */ s16 unk_B62;
-    /* 0xB64 */ u8 unk_B64;
+    /* 0xB64 */ u8 unkTimer_B64;
     /* 0xB65 */ u8 shockTimer;
     /* 0xB66 */ u8 unk_B66;
     /* 0xB67 */ u8 remainingHopsCounter; // Deku hopping on water
@@ -1303,7 +1303,7 @@ typedef struct Player {
     /* 0xD04 */ MtxF shieldMf;
     /* 0xD44 */ u8 isBurning;
     /* 0xD45 */ u8 flameTimers[PLAYER_BODYPART_MAX]; // one flame per body part
-    /* 0xD57 */ u8 unk_D57;
+    /* 0xD57 */ u8 unkTimer_D57;
     /* 0xD58 */ PlayerFuncD58 unk_D58;
     /* 0xD5C */ s8 invincibilityTimer; // prevents damage when nonzero (positive = visible, counts towards zero each frame)
     /* 0xD5D */ u8 floorTypeTimer; // Unused remnant of OoT
@@ -1314,7 +1314,7 @@ typedef struct Player {
     /* 0xD66 */ u16 prevFloorSfxOffset;
     /* 0xD68 */ s16 unk_D68;
     /* 0xD6A */ s8 unk_D6A;
-    /* 0xD6B */ u8 unk_D6B;
+    /* 0xD6B */ u8 unkTimer_D6B;
     /* 0xD6C */ Vec3f unk_D6C; // previous body part 0 position
 } Player; // size = 0xD78
 

@@ -210,7 +210,7 @@ void func_8088A594(EnArrow* this, PlayState* play) {
             }
         }
     } else {
-        if ((this->actor.params != ARROW_TYPE_DEKU_NUT) && (player->unk_D57 == 0)) {
+        if ((this->actor.params != ARROW_TYPE_DEKU_NUT) && (player->unkTimer_D57 == 0)) {
             if (this->actor.params == ARROW_TYPE_DEKU_BUBBLE) {
                 Magic_Reset(play);
             }
@@ -589,7 +589,7 @@ void EnArrow_Update(Actor* thisx, PlayState* play) {
 
     if ((this->unk_263 != 0) ||
         ((this->actor.params >= ARROW_TYPE_NORMAL_LIT) &&
-         ((this->actor.params == ARROW_TYPE_DEKU_BUBBLE) || (player->unk_D57 != 0))) ||
+         ((this->actor.params == ARROW_TYPE_DEKU_BUBBLE) || (player->unkTimer_D57 != 0))) ||
         !Player_InBlockingCsMode(play, player)) {
         this->actionFunc(this, play);
     }

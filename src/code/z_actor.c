@@ -3850,7 +3850,7 @@ Actor* func_800BC270(PlayState* play, Actor* actor, f32 distance, u32 dmgFlags) 
             ((itemAction->id == ACTOR_EN_ARROW) && (Actor_GetArrowDmgFlags(itemAction->params) & dmgFlags))) {
             f32 speed;
 
-            if ((itemAction->speed <= 0.0f) && (GET_PLAYER(play)->unk_D57 != 0)) {
+            if ((itemAction->speed <= 0.0f) && (GET_PLAYER(play)->unkTimer_D57 != 0)) {
                 if (itemAction->id == ACTOR_ARMS_HOOK) {
                     speed = 20.0f;
                 } else if (itemAction->id == ACTOR_EN_BOOM) {

@@ -322,7 +322,7 @@ s32 func_80B85858(EnKaizoku* this, PlayState* play) {
 
     for (itemAction = play->actorCtx.actorLists[ACTORCAT_ITEMACTION].first; itemAction != NULL;
          itemAction = itemAction->next) {
-        if (((itemAction->id != ACTOR_ARMS_HOOK) && (itemAction->id != ACTOR_EN_ARROW)) || (player->unk_D57 == 0)) {
+        if (((itemAction->id != ACTOR_ARMS_HOOK) && (itemAction->id != ACTOR_EN_ARROW)) || (player->unkTimer_D57 == 0)) {
             continue;
         }
 
