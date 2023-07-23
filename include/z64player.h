@@ -932,7 +932,7 @@ typedef enum PlayerCueId {
 #define PLAYER_STATE2_2          (1 << 1)
 //
 #define PLAYER_STATE2_4          (1 << 2)
-//
+// sounds related. maybe set when making a sound detectable by guards?
 #define PLAYER_STATE2_8          (1 << 3)
 //
 #define PLAYER_STATE2_10         (1 << 4)
