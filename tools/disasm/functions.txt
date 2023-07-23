@@ -4786,7 +4786,7 @@
     0x80856888:("func_80856888",),
     0x80856918:("Player_Action_94",),
     0x808573A4:("Player_Action_95",),
-    0x80857640:("func_80857640",),
+    0x80857640:("Player_GoronPound",),
     0x808576BC:("func_808576BC",),
     0x808577E0:("func_808577E0",),
     0x80857950:("Player_GoronRoll_CheckStop",),

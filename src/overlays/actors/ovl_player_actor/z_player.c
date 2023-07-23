@@ -18751,7 +18751,7 @@ void Player_Action_95(Player* this, PlayState* play) {
     }
 }
 
-void func_80857640(Player* this, f32 arg1, s32 arg2) {
+void Player_GoronPound(Player* this, f32 arg1, s32 arg2) {
     func_80834CD0(this, arg1, NA_SE_VO_LI_SWORD_N);
     Player_PlaySfx(this, NA_SE_PL_GORON_BALLJUMP);
     Player_StopHorizontalMovement(this);
@@ -18968,7 +18968,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 }
             } else if ((this->unk_B86[1] == 0) && CHECK_BTN_ALL(sPlayerControlInput->press.button, BTN_B) &&
                        (Inventory_GetBtnBItem(play) < ITEM_FD)) {
-                func_80857640(this, 14.0f, 0x1F40);
+                Player_GoronPound(this, 14.0f, 0x1F40);
             } else {
                 f32 spCC;
                 s16 spCA;
