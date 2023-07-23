@@ -1320,7 +1320,8 @@ typedef struct Player {
                         // over time. Spikes retract when it reaches 0.
                         /* 0xB88 */ s16 spikesDebounce;
                         /* 0xB8A */ s16 unk_B8A;
-                        /* 0xB8C */ s16 unk_B8C;
+                        // When >0, this disables steering (and counts down).
+                        /* 0xB8C */ s16 yawLockTimer;
                         /* 0xB8E */ s16 unk_B8E;
                     } actionGoronRoll; // Player_Action_GoronRoll
                 };

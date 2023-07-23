@@ -2631,7 +2631,7 @@ void BossHakugin_CheckForBodyColliderHit(BossHakugin* this, PlayState* play) {
             player->unk_B08 = player->linearVelocity = -5.0f;
             player->unk_B0C += player->unk_B08 * 0.05f;
             player->actor.velocity.y = 10.0f;
-            player->actionData.unk_B8C = 4;
+            player->actionGoronRoll.yawLockTimer = 4;
             player->actor.shape.rot.y = player->actor.home.rot.y = player->currentYaw = player->actor.world.rot.y;
         } else if (!(this->bodyCollider.base.atFlags & AT_BOUNCED)) {
             s16 knockbackYaw = this->actor.yawTowardsPlayer - this->actor.shape.rot.y;

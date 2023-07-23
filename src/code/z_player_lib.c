@@ -560,7 +560,7 @@ s32 func_801235DC(PlayState* play, f32 arg1, s16 arg2) {
         player->currentYaw = arg2;
         player->actor.home.rot.y = arg2;
         player->actor.shape.rot.y = arg2;
-        player->actionData.unk_B8C = 4;
+        player->actionGoronRoll.yawLockTimer = 4;
         player->invincibilityTimer = 20;
 
         return true;

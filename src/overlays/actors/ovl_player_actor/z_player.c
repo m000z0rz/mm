@@ -18925,8 +18925,8 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
             speedTarget *= 2.6f;
         }
 
-        if (this->actionData.unk_B8C != 0) {
-            this->actionData.unk_B8C--;
+        if (this->actionGoronRoll.yawLockTimer != 0) {
+            this->actionGoronRoll.yawLockTimer--;
             yawTarget = this->currentYaw;
         }
 

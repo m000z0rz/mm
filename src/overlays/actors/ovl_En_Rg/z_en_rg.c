@@ -582,7 +582,7 @@ void func_80BF4AB8(EnRg* this, PlayState* play) {
                     } else {
                         player->currentYaw -= 0x2000;
                     }
-                    player->actionData.unk_B8C = 4;
+                    player->actionGoronRoll.yawLockTimer = 4;
                     player->invincibilityTimer = 20;
                     player->actor.home.rot.y = player->actor.world.rot.y;
                     player->actor.shape.rot.y = player->actor.world.rot.y;
