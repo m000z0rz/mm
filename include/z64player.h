@@ -1243,6 +1243,7 @@ typedef struct Player {
      * = 3 when bonking with spikes out
      * = 4 when idle or rolling slowly
      * increases when accelerating with spikes out
+     * spikes come out when it hits 0x36 (54)
      * resets to 4 after accelerating without spikes out, and stop accelerating
      * decreases over time down to 4 after spikes come out
      */

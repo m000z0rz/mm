@@ -18844,6 +18844,7 @@ s32 func_80857A44(PlayState* play, Player* this) {
     return false;
 }
 
+// Called once from Player_Action_GoronRoll
 void func_80857AEC(PlayState* play, Player* this) {
     if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND_TOUCH) {
         this->unk_B0C += this->unk_B08 * 0.05f;
@@ -18957,7 +18958,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
 
         Math_AsymStepToF(&this->unk_B10[0], (this->actionData.unk_B8A != 0) ? 1.0f : 0.0f, 0.8f, 0.05f);
         if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) {
-            func_80857AEC(play, this);
+            func_80857AEC(play, this); // landing stuff, incl. pound stuff or playing sounds
             if (this->av1.actionVar1 == 2) {
                 if (this->actionData.unk_B8A == 0) {
                     this->av1.actionVar1 = 4;
