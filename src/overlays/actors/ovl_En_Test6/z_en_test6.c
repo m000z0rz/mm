@@ -892,7 +892,7 @@ void EnTest6_DoubleSoTCutscene(EnTest6* this, PlayState* play) {
             player->actor.shape.rot = this->actor.home.rot;
             player->actor.focus.rot.y = player->actor.shape.rot.y;
             player->currentYaw = player->actor.shape.rot.y;
-            player->unk_ABC = 0.0f;
+            player->partialGoronRollSkew = 0.0f;
             player->unk_AC0 = 0.0f;
             player->actor.shape.yOffset = 0.0f;
             break;

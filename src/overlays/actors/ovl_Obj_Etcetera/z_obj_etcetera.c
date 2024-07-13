@@ -160,7 +160,7 @@ void ObjEtcetera_Idle(ObjEtcetera* this, PlayState* play) {
                 this->oscillationTimer = 10;
                 ObjEtcetera_StartRustleAnimation(this);
             } else if ((player->actor.speed > 0.1f) ||
-                       ((player->unk_ABC < 0.0f) && !(player->stateFlags3 & PLAYER_STATE3_100))) {
+                       ((player->partialGoronRollSkew < 0.0f) && !(player->stateFlags3 & PLAYER_STATE3_100))) {
                 // Player is walking on top of the Deku Flower, is at the very start of burrowing, or is at the very
                 // start of launching
                 this->oscillationTimer = 10;

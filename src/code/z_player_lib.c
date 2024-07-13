@@ -1785,7 +1785,7 @@ void Player_AdjustSingleLeg(PlayState* play, Player* player, SkelAnime* skelAnim
 
     footprintPos.y += 15.0f;
     yIntersect = BgCheck_EntityRaycastFloor3(&play->colCtx, &poly, &bgId, &footprintPos) + sp7C +
-                 (player->unk_ABC * player->actor.scale.y);
+                 (player->partialGoronRollSkew * player->actor.scale.y);
     if (sp84.y < yIntersect) {
         f32 diffX = sp84.x - sp90.x;
         f32 diffY = sp84.y - sp90.y;

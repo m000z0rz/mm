@@ -1217,7 +1217,7 @@ typedef struct Player {
     /* 0xAAC */ Vec3s headLimbRot;
     /* 0xAB2 */ Vec3s upperLimbRot;
     /* 0xAB8 */ f32 unk_AB8;
-    /* 0xABC */ f32 unk_ABC;
+    /* 0xABC */ f32 partialGoronRollSkew;
     /* 0xAC0 */ f32 unk_AC0;
     /* 0xAC4 */ PlayerUpperActionFunc upperActionFunc; // Upper body/item action functions
     /* 0xAC8 */ f32 skelAnimeUpperBlendWeight;
