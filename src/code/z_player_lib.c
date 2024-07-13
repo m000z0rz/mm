@@ -1332,13 +1332,14 @@ void Player_Untarget(Player* player) {
 void func_80123DC0(Player* player) {
     if ((player->actor.bgCheckFlags & BGCHECKFLAG_GROUND) ||
         (player->stateFlags1 & (PLAYER_STATE1_200000 | PLAYER_STATE1_800000 | PLAYER_STATE1_8000000)) ||
-        (!(player->stateFlags1 & (PLAYER_STATE1_40000 | PLAYER_STATE1_80000)) &&
+        (!(player->stateFlags1 & (PLAYER_STATE1_GORON_BONKING | PLAYER_STATE1_80000)) &&
          ((player->actor.world.pos.y - player->actor.floorHeight) < 100.0f))) {
-        player->stateFlags1 &= ~(PLAYER_STATE1_8000 | PLAYER_STATE1_10000 | PLAYER_STATE1_20000 | PLAYER_STATE1_40000 |
+        player->stateFlags1 &= ~(PLAYER_STATE1_8000 | PLAYER_STATE1_10000 | PLAYER_STATE1_20000 |
+                                 PLAYER_STATE1_GORON_BONKING |
                                  PLAYER_STATE1_80000 | PLAYER_STATE1_40000000);
-    } else if (!(player->stateFlags1 & (PLAYER_STATE1_40000 | PLAYER_STATE1_80000 | PLAYER_STATE1_200000))) {
+    } else if (!(player->stateFlags1 & (PLAYER_STATE1_GORON_BONKING | PLAYER_STATE1_80000 | PLAYER_STATE1_200000))) {
         player->stateFlags1 |= PLAYER_STATE1_80000;
-    } else if ((player->stateFlags1 & PLAYER_STATE1_40000) && (player->transformation == PLAYER_FORM_DEKU)) {
+    } else if ((player->stateFlags1 & PLAYER_STATE1_GORON_BONKING) && (player->transformation == PLAYER_FORM_DEKU)) {
         player->stateFlags1 &=
             ~(PLAYER_STATE1_8000 | PLAYER_STATE1_10000 | PLAYER_STATE1_20000 | PLAYER_STATE1_40000000);
     }

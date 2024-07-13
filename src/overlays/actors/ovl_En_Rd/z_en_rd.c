@@ -655,7 +655,7 @@ void EnRd_WalkToPlayer(EnRd* this, PlayState* play) {
     }
 
     if ((ABS_ALT(yaw) < 0x1554) && (Actor_WorldDistXYZToActor(&this->actor, &player->actor) <= 150.0f)) {
-        if (!(player->stateFlags1 & (PLAYER_STATE1_80 | PLAYER_STATE1_2000 | PLAYER_STATE1_4000 | PLAYER_STATE1_40000 |
+        if (!(player->stateFlags1 & (PLAYER_STATE1_80 | PLAYER_STATE1_2000 | PLAYER_STATE1_4000 | PLAYER_STATE1_GORON_BONKING |
                                      PLAYER_STATE1_80000 | PLAYER_STATE1_200000)) &&
             !(player->stateFlags2 & (PLAYER_STATE2_80 | PLAYER_STATE2_4000))) {
             if (this->playerStunWaitTimer == 0) {
@@ -737,7 +737,7 @@ void EnRd_WalkToHome(EnRd* this, PlayState* play) {
     this->actor.world.rot.y = this->actor.shape.rot.y;
     SkelAnime_Update(&this->skelAnime);
 
-    if (!(player->stateFlags1 & (PLAYER_STATE1_80 | PLAYER_STATE1_2000 | PLAYER_STATE1_4000 | PLAYER_STATE1_40000 |
+    if (!(player->stateFlags1 & (PLAYER_STATE1_80 | PLAYER_STATE1_2000 | PLAYER_STATE1_4000 | PLAYER_STATE1_GORON_BONKING |
                                  PLAYER_STATE1_80000 | PLAYER_STATE1_200000)) &&
         !(player->stateFlags2 & (PLAYER_STATE2_80 | PLAYER_STATE2_4000)) &&
         (player->transformation != PLAYER_FORM_GORON) && (player->transformation != PLAYER_FORM_DEKU) &&

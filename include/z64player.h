@@ -897,7 +897,7 @@ typedef enum PlayerCueId {
 //
 #define PLAYER_STATE1_20000      (1 << 17)
 //
-#define PLAYER_STATE1_40000      (1 << 18)
+#define PLAYER_STATE1_GORON_BONKING (1 << 18) // PLAYER_STATE1_40000
 //
 #define PLAYER_STATE1_80000      (1 << 19)
 //

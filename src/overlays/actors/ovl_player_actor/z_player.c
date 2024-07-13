@@ -5884,7 +5884,7 @@ void func_80834CD0(Player* this, f32 arg1, u16 sfxId) {
         Player_AnimSfx_PlayVoice(this, sfxId);
     }
 
-    this->stateFlags1 |= PLAYER_STATE1_40000;
+    this->stateFlags1 |= PLAYER_STATE1_GORON_BONKING;
     this->fallStartHeight = this->actor.world.pos.y;
 }
 
@@ -6711,7 +6711,7 @@ s32 func_80836F10(PlayState* play, Player* this) {
     }
 
     Math_StepToF(&this->linearVelocity, 0.0f, 1.0f);
-    this->stateFlags1 &= ~(PLAYER_STATE1_40000 | PLAYER_STATE1_80000);
+    this->stateFlags1 &= ~(PLAYER_STATE1_GORON_BONKING | PLAYER_STATE1_80000);
 
     // Height enough for fall damage
     if (fallDistance >= 400) {
@@ -6774,7 +6774,7 @@ void func_80837134(PlayState* play, Player* this) {
     PlayerAnimationHeader* anim = D_8085BE84[PLAYER_ANIMGROUP_landing][this->modelAnimType];
     s32 temp_v0_2; // sp28
 
-    this->stateFlags1 &= ~(PLAYER_STATE1_40000 | PLAYER_STATE1_80000);
+    this->stateFlags1 &= ~(PLAYER_STATE1_GORON_BONKING | PLAYER_STATE1_80000);
 
     if (this->transformation == PLAYER_FORM_DEKU) {
         s32 var_v1 = false;
@@ -8408,7 +8408,7 @@ void func_8083B2E4(Player* this, PlayState* play) {
 }
 
 void func_8083B32C(PlayState* play, Player* this, f32 arg2) {
-    this->stateFlags1 |= PLAYER_STATE1_40000;
+    this->stateFlags1 |= PLAYER_STATE1_GORON_BONKING;
     this->stateFlags1 &= ~PLAYER_STATE1_8000000;
     func_8082DC64(play, this);
 
@@ -8568,7 +8568,7 @@ void func_8083B930(PlayState* play, Player* this) {
 
     this->stateFlags1 |= PLAYER_STATE1_8000000;
     this->stateFlags2 |= PLAYER_STATE2_400;
-    this->stateFlags1 &= ~(PLAYER_STATE1_40000 | PLAYER_STATE1_80000);
+    this->stateFlags1 &= ~(PLAYER_STATE1_GORON_BONKING | PLAYER_STATE1_80000);
 
     this->unk_AEC = 0.0f;
     func_80123140(play, this);
@@ -11569,7 +11569,7 @@ void Player_UpdateCamAndSeqModes(PlayState* play, Player* this) {
                 }
             } else if ((this->stateFlags1 & PLAYER_STATE1_SHIELDING) && (this->transformation != 0)) {
                 camMode = CAM_MODE_STILL;
-            } else if (this->stateFlags1 & PLAYER_STATE1_40000) {
+            } else if (this->stateFlags1 & PLAYER_STATE1_GORON_BONKING) {
                 camMode = CAM_MODE_JUMP;
             } else if (this->stateFlags1 & PLAYER_STATE1_200000) {
                 camMode = CAM_MODE_CLIMB;
@@ -15087,12 +15087,12 @@ void Player_Action_33(Player* this, PlayState* play) {
     } else {
         temp_v0 = func_808331FC(play, this, &this->skelAnime, 4.0f);
         if (temp_v0 == 0) {
-            this->stateFlags1 &= ~(PLAYER_STATE1_4 | PLAYER_STATE1_4000 | PLAYER_STATE1_40000);
+            this->stateFlags1 &= ~(PLAYER_STATE1_4 | PLAYER_STATE1_4000 | PLAYER_STATE1_GORON_BONKING);
             return;
         }
         if (animFinished || (temp_v0 > 0)) {
             func_80839E74(this, play);
-            this->stateFlags1 &= ~(PLAYER_STATE1_4 | PLAYER_STATE1_4000 | PLAYER_STATE1_40000);
+            this->stateFlags1 &= ~(PLAYER_STATE1_4 | PLAYER_STATE1_4000 | PLAYER_STATE1_GORON_BONKING);
             this->unk_ABC = 0.0f;
             return;
         }
@@ -19494,7 +19494,7 @@ void func_80859248(Player* this) {
 void func_8085929C(PlayState* play, Player* this, UNK_TYPE arg2) {
     this->stateFlags1 |= PLAYER_STATE1_8000000;
     this->stateFlags2 |= PLAYER_STATE2_400;
-    this->stateFlags1 &= ~(PLAYER_STATE1_40000 | PLAYER_STATE1_80000);
+    this->stateFlags1 &= ~(PLAYER_STATE1_GORON_BONKING | PLAYER_STATE1_80000);
     Player_Anim_PlayLoop(play, this, &gPlayerAnim_link_swimer_swim);
     this->linearVelocity = 0.0f;
 }
