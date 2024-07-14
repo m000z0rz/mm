@@ -4278,11 +4278,11 @@ s32 Player_SetAction(PlayState* play, Player* this, PlayerActionFunc actionFunc,
     this->av1.actionVar1 = 0;
     this->av2.actionVar2 = 0;
     this->unk_AA4 = 0;
-    this->unk_B86[0] = 0;
-    this->unk_B86[1] = 0;
-    this->unk_B8A = 0;
-    this->unk_B8C = 0;
-    this->unk_B8E = 0;
+    this->actionData.unk_B86 = 0;
+    this->actionData.unk_B88 = 0;
+    this->actionData.unk_B8A = 0;
+    this->actionData.unk_B8C = 0;
+    this->actionData.unk_B8E = 0;
 
     // TODO: Is there no other way to write this that works?
     i = 0;
@@ -6613,7 +6613,7 @@ void func_80836A98(Player* this, PlayerAnimationHeader* anim, PlayState* play) {
 void func_80836AD8(PlayState* play, Player* this) {
     Player_SetAction(play, this, Player_Action_GoronRoll, 0);
     this->unk_B28 = 0;
-    this->unk_B86[1] = 0;
+    this->actionGoronRoll.spikesDebounce = 0;
     this->unk_AF0[0].x = 0.0f;
     this->unk_AF0[0].y = 0.0f;
     this->unk_AF0[0].z = 0.0f;
@@ -8457,7 +8457,7 @@ s32 func_8083B3B4(PlayState* play, Player* this, Input* input) {
         func_8082DC64(play, this);
         temp_v0_3 = func_80837730(play, this, this->actor.velocity.y, 0x1F4);
         if (this->stateFlags3 & PLAYER_STATE3_8000) {
-            sp2A = this->unk_B86[1];
+            sp2A = this->actionData.unk_B88;
             sp24 = this->unk_B48 * 1.5f;
             Player_SetAction(play, this, Player_Action_28, 1);
             this->stateFlags3 |= PLAYER_STATE3_8000;
@@ -8465,7 +8465,7 @@ s32 func_8083B3B4(PlayState* play, Player* this, Input* input) {
             sp24 = CLAMP_MAX(sp24, 13.5f);
             this->linearVelocity = Math_CosS(this->unk_AAA) * sp24;
             this->actor.velocity.y = -Math_SinS(this->unk_AAA) * sp24;
-            this->unk_B86[1] = sp2A;
+            this->actionData.unk_B88 = sp2A;
             Player_PlaySfx(this, NA_SE_EV_JUMP_OUT_WATER);
             return true;
         }
@@ -8763,7 +8763,7 @@ void func_8083BF54(PlayState* play, Player* this) {
             var_fv1 = (this->stateFlags1 & PLAYER_STATE1_4000000)
                           ? -fabsf(this->linearVelocity)
                           : ((Player_Action_56 == this->actionFunc)
-                                 ? (ABS_ALT(this->unk_B8A) * -0.004f) + (this->unk_B48 * -0.38f)
+                                 ? (ABS_ALT(this->actionData.unk_B8A) * -0.004f) + (this->unk_B48 * -0.38f)
                                  : this->actor.velocity.y);
 
             if ((var_fv1 > -1.0f) || ((this->currentBoots == PLAYER_BOOTS_ZORA_UNDERWATER) &&
@@ -12590,7 +12590,7 @@ void Player_Draw(Actor* thisx, PlayState* play) {
             spE0 = this->av2.actionVar2 - 6;
             if (spE0 < 0.0f) {
                 spE8 = D_8085D55C;
-                spE0 = this->unk_B86[0];
+                spE0 = this->actionData.unk_B86;
             }
         }
 
@@ -12633,9 +12633,9 @@ void Player_Draw(Actor* thisx, PlayState* play) {
             Matrix_Translate(this->actor.world.pos.x, this->actor.world.pos.y + (1200.0f * this->actor.scale.y * spB8),
                              this->actor.world.pos.z, MTXMODE_NEW);
 
-            if (this->unk_B86[0] != 0) {
+            if (this->actionData.unk_B86 != 0) {
                 Matrix_RotateYS(this->unk_B28, MTXMODE_APPLY);
-                Matrix_RotateXS(this->unk_B86[0], MTXMODE_APPLY);
+                Matrix_RotateXS(this->actionData.unk_B86, MTXMODE_APPLY);
                 Matrix_RotateYS(-this->unk_B28, MTXMODE_APPLY);
             }
 
@@ -12653,9 +12653,9 @@ void Player_Draw(Actor* thisx, PlayState* play) {
             gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
             gSPDisplayList(POLY_OPA_DISP++, gLinkGoronCurledDL);
 
-            if (this->unk_B86[1] != 0) {
-                if (this->unk_B86[1] < 3) {
-                    func_80124618(D_8085D540, this->unk_B86[1], this->unk_AF0);
+            if (this->actionData.unk_B88 != 0) {
+                if (this->actionData.unk_B88 < 3) {
+                    func_80124618(D_8085D540, this->actionData.unk_B88, this->unk_AF0);
                     Matrix_Scale(this->unk_AF0[0].x, this->unk_AF0[0].y, this->unk_AF0[0].z, MTXMODE_APPLY);
                     gSPMatrix(POLY_OPA_DISP++, Matrix_NewMtx(play->state.gfxCtx),
                               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -12667,20 +12667,20 @@ void Player_Draw(Actor* thisx, PlayState* play) {
             func_80122BA4(play, &this->unk_3D0, 1, 255);
             func_80122BA4(play, &this->unk_3D0, 2, 255);
 
-            if (this->unk_B86[1] < 3) {
+            if (this->actionData.unk_B88 < 3) {
                 if (this->av1.actionVar1 >= 5) {
                     f32 var_fa1;
                     u8 sp9B;
 
                     var_fa1 = (this->av1.actionVar1 - 4) * 0.02f;
 
-                    if (this->unk_B86[1] != 0) {
-                        sp9B = (-this->unk_B86[1] * 0x55) + 0xFF;
+                    if (this->actionData.unk_B88 != 0) {
+                        sp9B = (-this->actionData.unk_B88 * 0x55) + 0xFF;
                     } else {
                         sp9B = (200.0f * var_fa1);
                     }
 
-                    if (this->unk_B86[1] != 0) {
+                    if (this->actionData.unk_B88 != 0) {
                         var_fa1 = 0.65f;
                     } else {
                         var_fa1 *= one;
@@ -13707,8 +13707,8 @@ void Player_Action_1(Player* this, PlayState* play) {
         R_PLAY_FILL_SCREEN_ALPHA += R_PLAY_FILL_SCREEN_ON;
         if (R_PLAY_FILL_SCREEN_ALPHA > 255) {
             R_PLAY_FILL_SCREEN_ALPHA = 255;
-            if (this->unk_B86[0] == 0) {
-                this->unk_B86[0] = 1;
+            if (this->actionData.unk_B86 == 0) {
+                this->actionData.unk_B86 = 1;
                 func_8082DE50(play, this);
             } else {
                 R_PLAY_FILL_SCREEN_ON = -20;
@@ -14855,7 +14855,7 @@ void Player_Action_28(Player* this, PlayState* play) {
         Player_Anim_PlayLoopAdjusted(play, this, &gPlayerAnim_pz_fishswim);
     }
 
-    Math_SmoothStepToS(&this->unk_B86[1], 0, 6, 0x7D0, 0x190);
+    Math_SmoothStepToS(&this->actionData.unk_B88, 0, 6, 0x7D0, 0x190);
     if (!func_80840A30(play, this, &this->linearVelocity, 0.0f)) {
         if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) {
             if (this->unk_AAA > 0x36B0) {
@@ -15979,8 +15979,8 @@ void Player_Action_51(Player* this, PlayState* play) {
 void func_8084FD7C(PlayState* play, Player* this, Actor* actor) {
     s16 var_a3;
 
-    if (this->unk_B86[0] != 0) {
-        this->unk_B86[0]--;
+    if (this->actionData.unk_B86 != 0) {
+        this->actionData.unk_B86--;
         return;
     }
 
@@ -16207,7 +16207,7 @@ void Player_Action_52(Player* this, PlayState* play) {
                     func_80831010(this, play);
                 }
 
-                this->unk_B86[0] = 0xC;
+                this->actionData.unk_B86 = 0xC;
             } else if (func_800B7128(this)) {
                 func_8084FD7C(play, this, &rideActor->actor);
             }
@@ -16265,7 +16265,7 @@ s32 func_80850734(PlayState* play, Player* this) {
         PlayerAnimation_Change(play, &this->skelAnime, &gPlayerAnim_pz_waterroll, PLAYER_ANIM_ADJUSTED_SPEED, 4.0f,
                                Animation_GetLastFrame(&gPlayerAnim_pz_waterroll), ANIMMODE_ONCE, -6.0f);
         this->av2.actionVar2 = 5;
-        this->unk_B86[0] = 0;
+        this->actionData.unk_B86 = 0;
         this->unk_B48 = this->linearVelocity;
         this->actor.velocity.y = 0.0f;
         Player_PlaySfx(this, NA_SE_PL_ZORA_SWIM_DASH);
@@ -16403,11 +16403,11 @@ void Player_Action_56(Player* this, PlayState* play) {
     if (this->av2.actionVar2 != 0) {
         if ((!func_8082DA90(play) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
             (this->currentBoots != PLAYER_BOOTS_ZORA_LAND)) {
-            this->unk_B86[0] = 1;
+            this->actionData.unk_B86 = 1;
         }
 
         if (PlayerAnimation_Update(play, &this->skelAnime) && (DECR(this->av2.actionVar2) == 0)) {
-            if (this->unk_B86[0] != 0) {
+            if (this->actionData.unk_B86 != 0) {
                 this->stateFlags3 &= ~PLAYER_STATE3_8000;
                 Player_Anim_PlayOnceAdjusted(play, this, &gPlayerAnim_pz_swimtowait);
             } else {
@@ -16429,16 +16429,16 @@ void Player_Action_56(Player* this, PlayState* play) {
             }
         }
 
-        Math_SmoothStepToS(&this->unk_B86[1], sPlayerControlInput->rel.stick_x * 0xC8, 0xA, 0x3E8, 0x64);
-        Math_SmoothStepToS(&this->unk_B8E, this->unk_B86[1], IREG(40) + 1, IREG(41), IREG(42));
-    } else if (this->unk_B86[0] == 0) {
+        Math_SmoothStepToS(&this->actionData.unk_B88, sPlayerControlInput->rel.stick_x * 0xC8, 0xA, 0x3E8, 0x64);
+        Math_SmoothStepToS(&this->actionData.unk_B8E, this->actionData.unk_B88, IREG(40) + 1, IREG(41), IREG(42));
+    } else if (this->actionData.unk_B86 == 0) {
         PlayerAnimation_Update(play, &this->skelAnime);
 
         if ((!func_8082DA90(play) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
             (this->currentBoots != PLAYER_BOOTS_ZORA_LAND) || (this->windSpeed > 9.0f)) {
             this->stateFlags3 &= ~PLAYER_STATE3_8000;
             Player_Anim_PlayOnceAdjusted(play, this, &gPlayerAnim_pz_swimtowait);
-            this->unk_B86[0] = 1;
+            this->actionData.unk_B86 = 1;
         } else {
             speedTarget = 9.0f;
             Actor_PlaySfx_FlaggedCentered1(&this->actor, NA_SE_PL_ZORA_SWIM_LV - SFX_FLAG);
@@ -16446,8 +16446,8 @@ void Player_Action_56(Player* this, PlayState* play) {
 
         // Y
         sp3E = sPlayerControlInput->rel.stick_y * 0xC8;
-        if (this->unk_B8C != 0) {
-            this->unk_B8C--;
+        if (this->actionData.unk_B8C != 0) {
+            this->actionData.unk_B8C--;
             sp3E = CLAMP_MAX(sp3E, (s16)(this->floorPitch - 0xFA0));
         }
 
@@ -16458,16 +16458,16 @@ void Player_Action_56(Player* this, PlayState* play) {
 
         // X
         sp42 = sPlayerControlInput->rel.stick_x * 0x64;
-        if (Math_ScaledStepToS(&this->unk_B8A, sp42, 0x384) && (sp42 == 0)) {
-            Math_SmoothStepToS(&this->unk_B86[1], 0, 4, 0x5DC, 0x64);
-            Math_SmoothStepToS(&this->unk_B8E, this->unk_B86[1], IREG(44) + 1, IREG(45), IREG(46));
+        if (Math_ScaledStepToS(&this->actionData.unk_B8A, sp42, 0x384) && (sp42 == 0)) {
+            Math_SmoothStepToS(&this->actionData.unk_B88, 0, 4, 0x5DC, 0x64);
+            Math_SmoothStepToS(&this->actionData.unk_B8E, this->actionData.unk_B88, IREG(44) + 1, IREG(45), IREG(46));
         } else {
-            sp3C = this->unk_B86[1];
-            sp3A = (this->unk_B8A < 0) ? -0x3A98 : 0x3A98;
-            this->unk_B86[1] += this->unk_B8A;
-            Math_SmoothStepToS(&this->unk_B8E, this->unk_B86[1], IREG(47) + 1, IREG(48), IREG(49));
+            sp3C = this->actionData.unk_B88;
+            sp3A = (this->actionData.unk_B8A < 0) ? -0x3A98 : 0x3A98;
+            this->actionData.unk_B88 += this->actionData.unk_B8A;
+            Math_SmoothStepToS(&this->actionData.unk_B8E, this->actionData.unk_B88, IREG(47) + 1, IREG(48), IREG(49));
 
-            if ((ABS_ALT(this->unk_B8A) > 0xFA0) && ((((sp3C + this->unk_B8A) - sp3A) * (sp3C - sp3A)) <= 0)) {
+            if ((ABS_ALT(this->actionData.unk_B8A) > 0xFA0) && ((((sp3C + this->actionData.unk_B8A) - sp3A) * (sp3C - sp3A)) <= 0)) {
                 Player_PlaySfx(this, NA_SE_PL_ZORA_SWIM_ROLL);
             }
         }
@@ -16476,7 +16476,7 @@ void Player_Action_56(Player* this, PlayState* play) {
             func_80850D20(play, this);
         }
     } else {
-        Math_SmoothStepToS(&this->unk_B86[1], 0, 4, 0xFA0, 0x190);
+        Math_SmoothStepToS(&this->actionData.unk_B88, 0, 4, 0xFA0, 0x190);
         if ((this->skelAnime.curFrame <= 5.0f) || !func_80850734(play, this)) {
             if (PlayerAnimation_Update(play, &this->skelAnime)) {
                 func_808353DC(play, this);
@@ -16486,14 +16486,14 @@ void Player_Action_56(Player* this, PlayState* play) {
         Player_ResetCylinder(this);
     }
 
-    if ((this->unk_B8C < 8) && (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) {
+    if ((this->actionData.unk_B8C < 8) && (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND)) {
         DynaPolyActor* dynaActor;
 
         if ((this->actor.floorBgId == BGCHECK_SCENE) ||
             ((dynaActor = DynaPoly_GetActor(&play->colCtx, this->actor.floorBgId)) == NULL) ||
             (dynaActor->actor.id != ACTOR_EN_TWIG)) {
             this->unk_AAA += (s16)((-this->floorPitch - this->unk_AAA) * 2);
-            this->unk_B8C = 0xF;
+            this->actionData.unk_B8C = 0xF;
         }
 
         func_80850D20(play, this);
@@ -16708,8 +16708,8 @@ void func_80851D30(PlayState* play, Player* this) {
 }
 
 void func_80851EAC(Player* this) {
-    this->unk_B86[0] = -1;
-    this->unk_B86[1] = -1;
+    this->actionData.unk_B86 = -1;
+    this->actionData.unk_B88 = -1;
     this->unk_B10[0] = 0.0f;
 }
 
@@ -16732,7 +16732,7 @@ void func_80851F18(PlayState* play, Player* this) {
     f32* temp_v0;
     s32 i;
 
-    i = this->unk_B86[0];
+    i = this->actionData.unk_B86;
     if (i >= 0) {
         temp = &D_8085D714[i];
         i = 0;
@@ -16743,7 +16743,7 @@ void func_80851F18(PlayState* play, Player* this) {
         AnimationContext_SetCopyTrue(play, this->skelAnime.limbCount, this->skelAnime.jointTable,
                                      this->skelAnime.morphTable, D_8085BA08);
     }
-    i = this->unk_B86[1];
+    i = this->actionData.unk_B88;
     if (i >= 0) {
         temp = &D_8085D714[i];
         i = 1;
@@ -16760,10 +16760,10 @@ void func_80851F18(PlayState* play, Player* this) {
         *temp_v0 += 1.0f;
         if (*temp_v0 >= 9.0f) {
             *temp_v0 = 8.0f;
-            if (this->unk_B86[0] == i) {
-                this->unk_B86[0] = -1;
-            } else if (this->unk_B86[1] == i) {
-                this->unk_B86[1] = -1;
+            if (this->actionData.unk_B86 == i) {
+                this->actionData.unk_B86 = -1;
+            } else if (this->actionData.unk_B88 == i) {
+                this->actionData.unk_B88 = -1;
             }
         }
         temp_v0++;
@@ -16794,7 +16794,7 @@ void func_80852290(PlayState* play, Player* this) {
             Player_Anim_PlayLoopAdjusted(play, this, D_8085D190[this->transformation]);
         }
 
-        this->unk_B8A = 8;
+        this->actionData.unk_B8A = 8;
     } else {
         f32 sp3C;
         s16 var_a1_3;
@@ -16808,7 +16808,7 @@ void func_80852290(PlayState* play, Player* this) {
             }
 
             Player_Anim_PlayOnceAdjusted(play, this, D_8085D190[this->transformation]);
-            this->unk_B8A = 8;
+            this->actionData.unk_B8A = 8;
         }
 
         sPlayerControlInput = play->state.input;
@@ -16842,12 +16842,12 @@ void func_80852290(PlayState* play, Player* this) {
         }
     }
 
-    if (DECR(this->unk_B8A) != 0) {
-        this->unk_B86[0] += TRUNCF_BINANG(this->upperLimbRot.x * 2.5f);
-        this->unk_B86[1] += TRUNCF_BINANG(this->upperLimbRot.y * 3.0f);
+    if (DECR(this->actionData.unk_B8A) != 0) {
+        this->actionData.unk_B86 += TRUNCF_BINANG(this->upperLimbRot.x * 2.5f);
+        this->actionData.unk_B88 += TRUNCF_BINANG(this->upperLimbRot.y * 3.0f);
     } else {
-        this->unk_B86[0] = 0;
-        this->unk_B86[1] = 0;
+        this->actionData.unk_B86 = 0;
+        this->actionData.unk_B88 = 0;
     }
 }
 
@@ -18440,9 +18440,9 @@ void Player_Action_93(Player* this, PlayState* play) {
 
     if (this->unk_ABC < -1500.0f) {
         this->stateFlags3 |= PLAYER_STATE3_100;
-        if (this->unk_B86[0] < 8) {
-            this->unk_B86[0]++;
-            if (this->unk_B86[0] == 8) {
+        if (this->actionData.unk_B86 < 8) {
+            this->actionData.unk_B86++;
+            if (this->actionData.unk_B86 == 8) {
                 func_8082E1F0(this, NA_SE_PL_DEKUNUTS_BUD);
             }
         }
@@ -18587,7 +18587,7 @@ void Player_Action_94(Player* this, PlayState* play) {
         }
 
         if (this->windSpeed != 0.0f) {
-            Math_SmoothStepToS(&this->unk_B8C, this->windAngleX, 3, 0x1F40, 0x190);
+            Math_SmoothStepToS(&this->actionData.unk_B8C, this->windAngleX, 3, 0x1F40, 0x190);
         }
 
         func_8085687C(this);
@@ -18629,12 +18629,12 @@ void Player_Action_94(Player* this, PlayState* play) {
             }
         }
 
-        Math_AsymStepToS(&this->unk_B86[1], sp76, 0x190, 0x190);
+        Math_AsymStepToS(&this->actionData.unk_B88, sp76, 0x190, 0x190);
 
-        this->unk_B8A += this->unk_B86[1];
-        temp = ABS_ALT(this->unk_B86[1]);
+        this->actionData.unk_B8A += this->actionData.unk_B88;
+        temp = ABS_ALT(this->actionData.unk_B88);
         if (temp > 0xFA0) {
-            this->unk_B66 += (u8)(ABS_ALT(this->unk_B86[1]) * 0.01f);
+            this->unk_B66 += (u8)(ABS_ALT(this->actionData.unk_B88) * 0.01f);
         }
 
         if (this->unk_B66 > 200) {
@@ -18643,7 +18643,7 @@ void Player_Action_94(Player* this, PlayState* play) {
             func_808566C0(play, this, PLAYER_BODYPART_RIGHT_HAND, 0.0f, 1.0f, 0.0f, 32);
         }
 
-        Audio_PlaySfx_AtPosWithTimer(&this->actor.projectedPos, 0x1851, 2.0f * (this->unk_B86[1] * (1.0f / 6000.0f)));
+        Audio_PlaySfx_AtPosWithTimer(&this->actor.projectedPos, 0x1851, 2.0f * (this->actionData.unk_B88 * (1.0f / 6000.0f)));
         if ((this->boomerangActor == NULL) && CHECK_BTN_ALL(sPlayerControlInput->press.button, BTN_B)) {
             if (AMMO(ITEM_DEKU_NUT) == 0) {
                 Audio_PlaySfx(NA_SE_SY_ERROR);
@@ -18666,8 +18666,8 @@ void Player_Action_94(Player* this, PlayState* play) {
                 this->actor.terminalVelocity = -0.38f;
                 this->actor.gravity = -0.2f;
             } else {
-                this->actor.terminalVelocity = (this->unk_B86[1] * 0.0033f) + -20.0f;
-                this->actor.gravity = (this->unk_B86[1] * 0.00004f) + (REG(68) / 100.0f);
+                this->actor.terminalVelocity = (this->actionData.unk_B88 * 0.0033f) + -20.0f;
+                this->actor.gravity = (this->actionData.unk_B88 * 0.00004f) + (REG(68) / 100.0f);
             }
         }
 
@@ -18686,13 +18686,13 @@ void Player_Action_94(Player* this, PlayState* play) {
             sp68 = 0.25f;
         }
 
-        Math_SmoothStepToS(&this->unk_B8C, speedTarget * 600.0f, 8, 0xFA0, 0x64);
+        Math_SmoothStepToS(&this->actionData.unk_B8C, speedTarget * 600.0f, 8, 0xFA0, 0x64);
         Math_ScaledStepToS(&this->currentYaw, yawTarget, 0xFA);
 
         temp_ft0 = BINANG_SUB(yawTarget, this->currentYaw) * -2.0f;
         temp_ft0 = CLAMP(temp_ft0, -0x1F40, 0x1F40);
-        Math_SmoothStepToS(&this->unk_B8E, temp_ft0, 0x14, 0x320, 0x14);
-        speedTarget = (speedTarget * (this->unk_B86[1] * 0.0004f)) * fabsf(Math_SinS(this->unk_B8C));
+        Math_SmoothStepToS(&this->actionData.unk_B8E, temp_ft0, 0x14, 0x320, 0x14);
+        speedTarget = (speedTarget * (this->actionData.unk_B88 * 0.0004f)) * fabsf(Math_SinS(this->actionData.unk_B8C));
         func_80856888(&this->linearVelocity, speedTarget, sp68);
 
         speedTarget = sqrtf(SQ(this->linearVelocity) + SQ(this->actor.velocity.y));
@@ -18811,7 +18811,7 @@ void func_808577E0(Player* this) {
 
 // Stops a goron roll if it should stop, and returns true if it stopped
 bool Player_GoronRoll_CheckStop(PlayState* play, Player* this) {
-    if (((this->unk_B86[1] == 0) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) ||
+    if (((this->actionGoronRoll.spikesDebounce == 0) && !CHECK_BTN_ALL(sPlayerControlInput->cur.button, BTN_A)) || // Let go of A button and debounce ran out
         ((this->av1.actionVar1 == 3) && (this->actor.velocity.y < 0.0f))) { // Bonked, and no longer rising
         Player_SetAction(play, this, Player_Action_Idle, 1);
         Math_Vec3f_Copy(&this->actor.world.pos, &this->actor.prevPos);
@@ -18848,7 +18848,7 @@ void func_80857AEC(PlayState* play, Player* this) {
     if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND_TOUCH) {
         this->unk_B0C += this->unk_B08 * 0.05f;
 
-        if (this->unk_B86[1] == 0) {
+        if (this->actionData.unk_B88 == 0) {
             if (this->av1.actionVar1 == 1) {
                 this->av1.actionVar1 = 2;
                 Player_RequestQuakeAndRumble(play, this, NA_SE_PL_GORON_PUNCH);
@@ -18896,8 +18896,8 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
 
             this->linearVelocity *= 0.1f;
             func_80834CD0(this, 10.0f, 0);
-            if (this->unk_B86[1] != 0) {
-                this->unk_B86[1] = 0;
+            if (this->actionGoronRoll.spikesDebounce != 0) {
+                this->actionGoronRoll.spikesDebounce = 0;
                 this->av1.actionVar1 = 3;
             }
         } else if ((this->actor.bgCheckFlags & BGCHECKFLAG_WALL) && (this->unk_B08 >= 12.0f)) {
@@ -18912,25 +18912,25 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
             this->actor.home.rot.y = this->currentYaw;
             this->actor.shape.rot.y = this->currentYaw;
 
-            this->unk_B8C = 4;
+            this->actionData.unk_B8C = 4;
             Player_PlaySfx(this, NA_SE_IT_GORON_ROLLING_REFLECTION);
         }
 
         this->stateFlags2 |= (PLAYER_STATE2_20 | PLAYER_STATE2_40);
 
-        if (this->unk_B8E != 0) {
-            this->unk_B8E--;
+        if (this->actionData.unk_B8E != 0) {
+            this->actionData.unk_B8E--;
         } else {
             Player_GetMovementSpeedAndYaw(this, &speedTarget, &yawTarget, SPEED_MODE_LINEAR, play);
             speedTarget *= 2.6f;
         }
 
-        if (this->unk_B8C != 0) {
-            this->unk_B8C--;
+        if (this->actionData.unk_B8C != 0) {
+            this->actionData.unk_B8C--;
             yawTarget = this->currentYaw;
         }
 
-        if (this->unk_B86[1] != 0) {
+        if (this->actionGoronRoll.spikesDebounce != 0) {
             speedTarget = 18.0f;
             Math_StepToC(&this->av1.actionVar1, 4, 1);
 
@@ -18939,34 +18939,34 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                  (gSaveContext.save.saveInfo.playerData.magic == 0) ||
                  ((this->av1.actionVar1 == 4) && (this->unk_B08 < 12.0f)))) {
                 // Retract spikes
-                if (Math_StepToS(&this->unk_B86[1], 0, 1)) {
+                if (Math_StepToS(&this->actionGoronRoll.spikesDebounce, 0, 1)) {
                     this->stateFlags3 &= ~PLAYER_STATE3_GORON_SPIKES_OUT;
                     Magic_Reset(play);
                     Player_PlaySfx(this, NA_SE_PL_GORON_BALL_CHARGE_FAILED);
                 }
                 this->av1.actionVar1 = 4;
-            } else if (this->unk_B86[1] < 7) {
+            } else if (this->actionGoronRoll.spikesDebounce < 7) {
                 if (!(this->stateFlags3 & PLAYER_STATE3_GORON_SPIKES_OUT)) {
                     this->unk_3D0.unk_00 = 2;
                 }
-                this->unk_B86[1]++;
+                this->actionGoronRoll.spikesDebounce++;
             }
         }
 
         spDC = speedTarget * 900.0f;
 
-        Math_AsymStepToF(&this->unk_B10[0], (this->unk_B8A != 0) ? 1.0f : 0.0f, 0.8f, 0.05f);
+        Math_AsymStepToF(&this->unk_B10[0], (this->actionData.unk_B8A != 0) ? 1.0f : 0.0f, 0.8f, 0.05f);
         if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) {
             func_80857AEC(play, this);
             if (this->av1.actionVar1 == 2) {
-                if (this->unk_B8A == 0) {
+                if (this->actionData.unk_B8A == 0) {
                     this->av1.actionVar1 = 4;
                 } else {
-                    this->unk_B8A--;
+                    this->actionData.unk_B8A--;
                     this->unk_ABC = 0.0f;
                     this->unk_B48 = 0.14f;
                 }
-            } else if ((this->unk_B86[1] == 0) && CHECK_BTN_ALL(sPlayerControlInput->press.button, BTN_B) &&
+            } else if ((this->actionGoronRoll.spikesDebounce == 0) && CHECK_BTN_ALL(sPlayerControlInput->press.button, BTN_B) &&
                        (Inventory_GetBtnBItem(play) < ITEM_FD)) {
                 Player_GoronPound(this, 14.0f, 0x1F40);
             } else {
@@ -18989,12 +18989,12 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 s16 sp8E = this->currentYaw - this->actor.home.rot.y;
                 f32 sp88 = Math_CosS(sp8E);
 
-                if (this->unk_B86[1] == 0) {
+                if (this->actionGoronRoll.spikesDebounce == 0) {
                     this->unk_B0C = 0.0f;
                     if (this->av1.actionVar1 >= 0x36) {
                         Magic_Consume(play, 2, MAGIC_CONSUME_GORON_ZORA);
                         this->unk_B08 = 18.0f;
-                        this->unk_B86[1] = 1;
+                        this->actionGoronRoll.spikesDebounce = 1;
                         this->stateFlags3 |= PLAYER_STATE3_GORON_SPIKES_OUT;
                         func_8082E1F0(this, NA_SE_PL_GORON_BALL_CHARGE_DASH);
                     }
@@ -19029,7 +19029,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 spCA = yawTarget;
 
                 if (func_8083A4A4(this, &spCC, &spCA, (this->av1.actionVar1 >= 5) ? 0.0f : 1.0f)) {
-                    if (this->unk_B86[1] == 0) {
+                    if (this->actionGoronRoll.spikesDebounce == 0) {
                         this->av1.actionVar1 = 4;
                     }
 
@@ -19053,7 +19053,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                     f32 sp6C;
                     f32 var_fa1;
 
-                    if (this->unk_B86[1] == 0) {
+                    if (this->actionGoronRoll.spikesDebounce == 0) {
                         if ((gSaveContext.magicState == MAGIC_STATE_IDLE) &&
                             (gSaveContext.save.saveInfo.playerData.magic >= 2) && (this->av2.actionVar2 >= 0x36B0)) {
                             this->av1.actionVar1++;
@@ -19098,11 +19098,11 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 Actor_GetSlopeDirection(this->actor.floorPoly, &slopeNormal, &downwardSlopeYaw);
 
                 spB8 = sqrtf(SQ(spA4) + SQ(spA0));
-                if (this->unk_B86[1] != 0) {
+                if (this->actionGoronRoll.spikesDebounce != 0) {
                     if ((ABS_ALT(sp8E) + ABS_ALT(this->floorPitch)) > 0x3A98) {
-                        this->unk_B86[1] = 0;
+                        this->actionGoronRoll.spikesDebounce = 0;
                         this->av1.actionVar1 = 4;
-                        this->unk_B8E = 0x14;
+                        this->actionData.unk_B8E = 0x14;
                         this->av2.actionVar2 = 0;
                         this->stateFlags3 &= ~PLAYER_STATE3_GORON_SPIKES_OUT;
                         Magic_Reset(play);
@@ -19135,10 +19135,10 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                     }
 
                     if (this->av2.actionVar2 == 0) {
-                        s32 temp_v0_10 = this->unk_B86[0];
+                        s32 temp_v0_10 = this->actionData.unk_B86;
                         s32 temp_ft3_2 = sp54 * 800.0f;
 
-                        this->unk_B86[0] += (s16)temp_ft3_2;
+                        this->actionData.unk_B86 += (s16)temp_ft3_2;
                         if ((this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) && (temp_ft3_2 != 0) &&
                             (((temp_v0_10 + temp_ft3_2) * temp_v0_10) <= 0)) {
                             spE0 = Player_GetFloorSfx(this, NA_SE_PL_GORON_ROLL);
@@ -19170,7 +19170,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                 this->actor.velocity.y = this->unk_B08 * Math_SinS(this->floorPitch);
             }
 
-            if ((this->unk_B86[1] != 0) ||
+            if ((this->actionGoronRoll.spikesDebounce != 0) ||
                 SurfaceType_HasMaterialProperty(&play->colCtx, this->actor.floorPoly, this->actor.floorBgId,
                                                 MATERIAL_PROPERTY_SOFT_IMPRINT)) {
                 func_800AE930(&play->colCtx, Effect_GetByIndex(this->meleeWeaponEffectIndex[2]), &this->actor.world.pos,
@@ -19181,8 +19181,8 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
         } else {
             Math_ScaledStepToS(&this->actor.shape.rot.z, 0, 0x190);
 
-            this->unk_B86[0] = 0;
-            if (this->unk_B86[1] != 0) {
+            this->actionData.unk_B86 = 0;
+            if (this->actionGoronRoll.spikesDebounce != 0) {
                 this->actor.gravity = -1.0f;
                 Math_ScaledStepToS(&this->actor.home.rot.y, yawTarget, 0x190);
 
@@ -19197,7 +19197,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
                             this->actor.velocity.y = -this->actor.gravity;
                         }
                     } else {
-                        this->unk_B8A = 0xA;
+                        this->actionData.unk_B8A = 0xA;
                         if (this->actor.velocity.y > -1.0f) {
                             this->actor.gravity = -0.2f;
                         } else {
@@ -19220,10 +19220,10 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
             spD8 = this->actor.shape.rot.x;
             this->actor.shape.rot.x += this->av2.actionVar2;
 
-            Math_ScaledStepToS(&this->unk_B86[0], 0, ABS_ALT(this->av2.actionVar2));
+            Math_ScaledStepToS(&this->actionData.unk_B86, 0, ABS_ALT(this->av2.actionVar2));
             if ((this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) && (((this->av2.actionVar2 + spD8) * spD8) <= 0)) {
                 spE0 =
-                    Player_GetFloorSfx(this, (this->unk_B86[1] != 0) ? NA_SE_PL_GORON_CHG_ROLL : NA_SE_PL_GORON_ROLL);
+                    Player_GetFloorSfx(this, (this->actionGoronRoll.spikesDebounce != 0) ? NA_SE_PL_GORON_CHG_ROLL : NA_SE_PL_GORON_ROLL);
                 Audio_PlaySfx_AtPosWithSyncedFreqAndVolume(&this->actor.projectedPos, spE0, this->unk_B08);
             }
         }
@@ -19231,7 +19231,7 @@ void Player_Action_GoronRoll(Player* this, PlayState* play) {
         if (this->av1.actionVar1 == 2) {
             Player_SetCylinderForAttack(this, DMG_GORON_POUND, 4, 60);
             Actor_SetPlayerImpact(play, PLAYER_IMPACT_GORON_GROUND_POUND, 2, 100.0f, &this->actor.world.pos);
-        } else if (this->unk_B86[1] != 0) {
+        } else if (this->actionGoronRoll.spikesDebounce != 0) {
             Player_SetCylinderForAttack(this, DMG_GORON_SPIKES, 1, 25);
         } else {
             Player_SetCylinderForAttack(this, DMG_NORMAL_ROLL, 1, 25);

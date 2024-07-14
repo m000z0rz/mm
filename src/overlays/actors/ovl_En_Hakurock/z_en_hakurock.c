@@ -346,7 +346,7 @@ void EnHakurock_Stalactite_StuckInGround(EnHakurock* this, PlayState* play) {
             player->currentYaw = player->actor.world.rot.y;
             player->actor.home.rot.y = player->actor.world.rot.y;
             player->actor.shape.rot.y = player->actor.world.rot.y;
-            player->unk_B8C = 4;
+            player->actionData.unk_B8C = 4;
         }
     } else if ((this->actor.xzDistToPlayer > 1000.0f) && (this->actor.projectedPos.z < 0.0f)) {
         EnHakurock_SetupWaitForSignal(this);

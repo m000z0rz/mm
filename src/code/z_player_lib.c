@@ -560,7 +560,7 @@ s32 func_801235DC(PlayState* play, f32 arg1, s16 arg2) {
         player->currentYaw = arg2;
         player->actor.home.rot.y = arg2;
         player->actor.shape.rot.y = arg2;
-        player->unk_B8C = 4;
+        player->actionData.unk_B8C = 4;
         player->invincibilityTimer = 20;
 
         return true;
@@ -1945,7 +1945,7 @@ void func_801251C4(Player* player, Vec3f* arg1) {
     sp4C.x = player->actor.world.pos.x;
     sp4C.y = player->actor.world.pos.y + 60.0f;
     sp4C.z = player->actor.world.pos.z;
-    func_80124FF0(-20.0f, player->unk_B8C, &sp4C, player->actor.shape.rot.y,
+    func_80124FF0(-20.0f, player->actionData.unk_B8C, &sp4C, player->actor.shape.rot.y,
                   &player->bodyPartsPos[PLAYER_BODYPART_WAIST], arg1, &player->unk_B90, &player->unk_B10[0], 0.0f,
                   0x1F40, &player->unk_B92, &player->unk_B10[1], 0);
 
@@ -2057,7 +2057,7 @@ s32 Player_OverrideLimbDrawGameplayCommon(PlayState* play, s32 limbIndex, Gfx** 
 
             if (player->unk_B62 != 0) {
                 Matrix_Push();
-                Matrix_RotateZS(player->unk_B8E, MTXMODE_APPLY);
+                Matrix_RotateZS(player->actionData.unk_B8E, MTXMODE_APPLY);
                 Matrix_RotateZYX(rot->x, rot->y, rot->z, MTXMODE_APPLY);
                 Matrix_RotateXS(-0x8000, MTXMODE_APPLY);
                 Matrix_Translate(0.0f, 0.0f, -4000.0f, MTXMODE_APPLY);
@@ -2077,7 +2077,7 @@ s32 Player_OverrideLimbDrawGameplayCommon(PlayState* play, s32 limbIndex, Gfx** 
             sp54.z -= player->actor.world.pos.z;
             Matrix_Translate(pos->x + sp54.x, pos->y + sp54.y, pos->z + sp54.z, MTXMODE_APPLY);
             Matrix_RotateXS(player->unk_B94, MTXMODE_APPLY);
-            Matrix_RotateZS(player->unk_B8E, MTXMODE_APPLY);
+            Matrix_RotateZS(player->actionData.unk_B8E, MTXMODE_APPLY);
             player->upperLimbRot.x = player->unk_B90 - player->unk_B94;
             Matrix_RotateZYX(rot->x, rot->y, rot->z, MTXMODE_APPLY);
             func_80125318(pos, rot);
@@ -2205,7 +2205,7 @@ s32 Player_OverrideLimbDrawGameplayDefault(PlayState* play, s32 limbIndex, Gfx**
             EquipValueSword swordEquipValue;
 
             if (player->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) {
-                rot->z -= player->unk_B8C;
+                rot->z -= player->actionData.unk_B8C;
             } else if ((sPlayerLeftHandType == PLAYER_MODELTYPE_LH_4) &&
                        (player->stateFlags1 & PLAYER_STATE1_2000000)) {
                 leftHandDLists = &gPlayerLeftHandOpenDLs[D_801F59E0];
@@ -2260,7 +2260,7 @@ s32 Player_OverrideLimbDrawGameplayDefault(PlayState* play, s32 limbIndex, Gfx**
                 Gfx** rightHandDLists = player->rightHandDLists;
 
                 if (player->stateFlags3 & PLAYER_STATE3_DEKU_FLYING) {
-                    rot->z -= player->unk_B8C;
+                    rot->z -= player->actionData.unk_B8C;
                 }
 
                 if (sPlayerRightHandType == PLAYER_MODELTYPE_RH_SHIELD) {
@@ -2742,7 +2742,7 @@ void func_80126BD0(PlayState* play, Player* player, s32 arg2) {
         } else if (player->skelAnime.animation == &gPlayerAnim_pz_swimtowait) {
             func_80124618(D_801C05F0, player->skelAnime.curFrame, player->unk_AF0);
         } else if (player->skelAnime.animation == &gPlayerAnim_pz_fishswim) {
-            player->unk_AF0[0].x = (ABS_ALT(player->unk_B8A) * 0.00003f) + 0.5f;
+            player->unk_AF0[0].x = (ABS_ALT(player->actionData.unk_B8A) * 0.00003f) + 0.5f;
             player->unk_AF0[0].y = player->unk_AF0[0].x;
             player->unk_AF0[0].z = player->unk_AF0[0].x;
 
@@ -2805,7 +2805,7 @@ s32 func_801271B0(PlayState* play, Player* player, s32 arg2) {
             gSPDisplayList(POLY_OPA_DISP++, D_801C0B14[arg2]);
 
             Matrix_Translate(2150.0f, 0.0f, 0.0f, MTXMODE_APPLY);
-            Matrix_RotateXS(player->unk_B8A, MTXMODE_APPLY);
+            Matrix_RotateXS(player->actionData.unk_B8A, MTXMODE_APPLY);
             func_80124618(sp3C[1], player->skelAnime.curFrame, &player->unk_AF0[1]);
             Matrix_Scale(player->unk_AF0[1].x, player->unk_AF0[1].y, player->unk_AF0[1].z, MTXMODE_APPLY);
 

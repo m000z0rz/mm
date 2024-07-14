@@ -1300,16 +1300,31 @@ typedef struct Player {
     /* 0xB7C */ f32 unk_B7C;
     /* 0xB80 */ f32 pushedSpeed; // Pushing player, examples include water currents, floor conveyors, climbing sloped surfaces
     /* 0xB84 */ s16 pushedYaw; // Yaw of direction in which player is being pushed
-                
-                /** When goron rolling, unk_B86[1] is a "spikes debounce".
-                 * When spikes come out, it increases over time from 0 to 7.
-                 * When you release the A button, it decreases over time. When it reaches
-                 * 0, the spikes will retract.
-                 */
-    /* 0xB86 */ s16 unk_B86[2]; // unknown length
-    /* 0xB8A */ s16 unk_B8A;
-    /* 0xB8C */ s16 unk_B8C;
-    /* 0xB8E */ s16 unk_B8E;
+
+    /* 0xB86 */ union {
+                    // 0xB86 - 0xB8E are data specific to player actions.
+                    // Different player actions use them for different things.
+                    // Player_SetAction clears these values when changing actions.
+                    s16 unk_B86[5]; // Generic array-style access
+                    struct {
+                        /* 0xB86 */ s16 unk_B86;
+                        /* 0xB88 */ s16 unk_B88;
+                        /* 0xB8A */ s16 unk_B8A;
+                        /* 0xB8C */ s16 unk_B8C;
+                        /* 0xB8E */ s16 unk_B8E;
+                    } actionData; // Generic named access
+                    struct {
+                        /* 0xB86 */ s16 unk_B86;
+                        // When spikes come out, this increases over time from 0 to 7.
+                        // When you release the A button or run out of magic, it decreases
+                        // over time. Spikes retract when it reaches 0.
+                        /* 0xB88 */ s16 spikesDebounce;
+                        /* 0xB8A */ s16 unk_B8A;
+                        /* 0xB8C */ s16 unk_B8C;
+                        /* 0xB8E */ s16 unk_B8E;
+                    } actionGoronRoll; // Player_Action_GoronRoll
+                };
+
     /* 0xB90 */ s16 unk_B90;
     /* 0xB92 */ s16 unk_B92;
     /* 0xB94 */ s16 unk_B94;
