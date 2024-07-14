@@ -1289,7 +1289,13 @@ typedef struct Player {
     /* 0xB7C */ f32 unk_B7C;
     /* 0xB80 */ f32 pushedSpeed; // Pushing player, examples include water currents, floor conveyors, climbing sloped surfaces
     /* 0xB84 */ s16 pushedYaw; // Yaw of direction in which player is being pushed
-    /* 0xB86 */ s16 unk_B86[2]; // unknown length
+    union {
+        /* 0xB86 */ s16 unk_B86[2]; // unknown length
+        struct {
+            /* 0xB86 */ s16 unk_B86;
+            /* 0xB88 */ s16 spikesInputInertia; // Prevents spikes from retracting immediately when you let go of A
+        } actionGoronRoll;
+    };
     /* 0xB8A */ s16 unk_B8A;
     /* 0xB8C */ s16 unk_B8C;
     /* 0xB8E */ s16 unk_B8E;
