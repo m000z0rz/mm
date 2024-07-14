@@ -12661,7 +12661,7 @@ void Player_Draw(Actor* thisx, PlayState* play) {
                               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                 }
 
-                gSPDisplayList(POLY_OPA_DISP++, object_link_goron_DL_00C540);
+                gSPDisplayList(POLY_OPA_DISP++, gLinkGoronSpikesDL);
             }
 
             func_80122BA4(play, &this->unk_3D0, 1, 255);
@@ -12692,9 +12692,9 @@ void Player_Draw(Actor* thisx, PlayState* play) {
                               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                     AnimatedMat_DrawXlu(play, Lib_SegmentedToVirtual(&object_link_goron_Matanimheader_013138));
                     gDPSetEnvColor(POLY_XLU_DISP++, 155, 0, 0, sp9B);
-                    gSPDisplayList(POLY_XLU_DISP++, object_link_goron_DL_0127B0);
+                    gSPDisplayList(POLY_XLU_DISP++, gLinkGoronAxialGlowDL);
                     AnimatedMat_DrawXlu(play, Lib_SegmentedToVirtual(&object_link_goron_Matanimheader_014684));
-                    gSPDisplayList(POLY_XLU_DISP++, object_link_goron_DL_0134D0);
+                    gSPDisplayList(POLY_XLU_DISP++, gLinkGoronRadialGlowDL);
                 }
             }
         } else if ((this->transformation == PLAYER_FORM_GORON) && (this->stateFlags1 & PLAYER_STATE1_SHIELDING)) {
